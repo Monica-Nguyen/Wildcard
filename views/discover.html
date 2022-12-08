@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Star Wars Quote App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+
+  <body>
+    <div id="mainDiscContentDiv">
+        <div id="companyAndMatch">
+            <div id="companyTitle">
+                <p><%= companyTitle %></p>
+            </div>
+            <div id="companyLogo">
+                <img src="images/testImg.png">
+            </div>
+            <div id="match">
+                <a href="discover/yes">
+                    <img src="images/accept.png">
+                </a>
+                <a href="discover/no">
+                    <img src="images/decline.png">
+                </a>
+            </div>
+        </div>
+
+        <div id="info">
+            <div id="looking">
+                <p>Looking for</p>
+                <p><%= jobRoles %></p>
+            </div>
+            <div id="skillsDivs">
+                <p>Skills</p>
+                <ul>
+                    <li>item 1</li>
+                    <li>item 2</li>
+                    <li>item 3</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
