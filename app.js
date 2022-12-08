@@ -4,14 +4,12 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-<<<<<<< HEAD
 const api= require('./routes/api');
 const login = require("./routes/login")
-=======
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
->>>>>>> 17d9521 (Throw away Jade, ain't nobody got the time to learn that.)
+const discoverRouter = require('./routes/discover');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
