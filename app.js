@@ -4,10 +4,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-<<<<<<< HEAD
 const api= require('./routes/api');
 const login = require("./routes/login")
-=======
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
