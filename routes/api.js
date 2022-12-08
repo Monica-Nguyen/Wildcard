@@ -94,6 +94,7 @@ router.get('/employer/:id', async (req, res) => {
 // POST method to create Job
 router.post('/job/create',  jsonParser, async (req, res) => {
     const data = new Job({
+        company_name: req.body.company_name,
         position_title: req.body.position_title,
         position_level: req.body.position_level,
         can_coach: req.body.can_coach,
@@ -108,6 +109,37 @@ router.post('/job/create',  jsonParser, async (req, res) => {
     catch (error) {
         res.status(400).json({message: error.message})
     }
+})
+
+// POST to create a job for a specific company
+router.post('/job/company',  jsonParser, async (req, res) => {
+    const data = new Job({
+        company_name: req.body.company_name,
+        position_title: req.body.position_title,
+        position_level: req.body.position_level,
+        can_coach: req.body.can_coach,
+        skills: req.body.skills,
+        job_details: req.body.job_details
+    });
+    try {
+        data.save();
+
+        Employer.findOne({ company_name: req.body.company_name }, function(error, employer) {
+            if (error) {
+                res.status(400).json({message: error.message})
+            }
+            else {
+                employer.jobs.push(data);
+                employer.save();
+                res.status(200).json(data)
+            }
+        });
+    }
+    catch (error) {
+        res.status(400).json({message: error.message})
+    }
+
+
 })
 
 // GET method to create Job
