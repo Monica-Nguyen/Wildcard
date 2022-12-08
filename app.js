@@ -11,7 +11,6 @@ const login = require("./routes/login")
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
->>>>>>> 17d9521 (Throw away Jade, ain't nobody got the time to learn that.)
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
@@ -33,6 +32,7 @@ const matchesCollection = database.collection('matches')
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
