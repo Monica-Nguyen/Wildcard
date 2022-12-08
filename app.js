@@ -4,8 +4,14 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+<<<<<<< HEAD
 const api= require('./routes/api');
 const login = require("./routes/login")
+=======
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const discoverRouter = require('./routes/discover');
+>>>>>>> 17d9521 (Throw away Jade, ain't nobody got the time to learn that.)
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
@@ -21,6 +27,8 @@ database.once('connected', () => {
   console.log('Database Connected');
 })
 
+const matchesCollection = database.collection('matches')
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -35,7 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', api)
 app.use('/',login)
-
+app.use('/users', usersRouter);
+app.use('/discover', discoverRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
