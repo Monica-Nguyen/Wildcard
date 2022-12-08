@@ -72,6 +72,8 @@ app.use(
 
 app.use('/api', api)
 app.use('/account', account)
+app.use('/users', usersRouter);
+app.use('/discover', discoverRouter);
 
 app.get('/', function(req, res, next) {
     res.render('login.ejs', {})
