@@ -17,7 +17,8 @@ router.get("/", (req, res) => {
     res.sendFile(__dirname + "/ChatBox.html");
 });
 
-io.on("connection", async (socket) => {
+module.exports = function(io){
+    io.on('connection', (socket) => {
     socket.on('hello', (msg) => {
         console.log(msg)
         io.sockets.emit("hello", "hello from server")
@@ -35,9 +36,8 @@ io.on("connection", async (socket) => {
     socket.on("disconnect", function(data) {
         socket.broadcast.emit("user_leave", this.username);
     });
-});
-// server.listen(5000, () => {
-//     console.log("Server started on port 5000")
-// })
+    });
+};
+
 // server.listen(port);
 module.exports = router;

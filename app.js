@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-var messagingRouter = require('./routes/Messaging_Page');
+const messagingRouter = require('./routes/Messaging_Page');
 
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)

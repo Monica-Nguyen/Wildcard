@@ -73,6 +73,11 @@
             const username = prompt("Please enter a nickname: ", "");
             const socket = io();
 
+            socket.emit("hello", "hello from client")
+            socket.on("hello", function(msg) {
+                console.log(msg)
+            });
+
             form.addEventListener("submit", function(event) {
                 event.preventDefault();
 
