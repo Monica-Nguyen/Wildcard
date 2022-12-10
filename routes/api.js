@@ -22,7 +22,7 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
     })
 
     try {
-        const dataToSave = data.save();
+        const dataToSave = await data.save();
         res.status(200).json(dataToSave)
     }
     catch (error) {
@@ -60,7 +60,7 @@ router.post('/employer/create',  jsonParser, async (req, res) => {
     })
 
     try {
-        const dataToSave = data.save();
+        const dataToSave = await data.save();
         res.status(200).json(dataToSave)
     }
     catch (error) {
@@ -103,7 +103,7 @@ router.post('/job/create',  jsonParser, async (req, res) => {
     })
 
     try {
-        const dataToSave = data.save();
+        const dataToSave = await data.save();
         res.status(200).json(dataToSave)
     }
     catch (error) {
@@ -122,7 +122,7 @@ router.post('/job/company',  jsonParser, async (req, res) => {
         job_details: req.body.job_details
     });
     try {
-        data.save();
+        const dataToSave = await data.save();
 
         Employer.findOne({ company_name: req.body.company_name }, function(error, employer) {
             if (error) {
@@ -131,7 +131,7 @@ router.post('/job/company',  jsonParser, async (req, res) => {
             else {
                 employer.jobs.push(data);
                 employer.save();
-                res.status(200).json(data)
+                res.status(200).json(dataToSave)
             }
         });
     }
