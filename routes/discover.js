@@ -1,25 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const api = require('../routes/api.js');
+const axios = require('axios');
 const matches = require('../models/Matches.js')(mongoose);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('discover', { 
-    title: 'Discover', 
-    companyTitle: 'Apple', 
-    jobRoles: 'Pie, Cake, Cheese',
-  });
-});
+router.get('/', async function(req, res, next) {
+  // const skillsArray = []
 
-router.get('/yes', function(req, res, next) {
-  console.log("yes")
-  res.redirect("/discover")
-});
+  // const companies = await getTitlesArray(await getJobsArray());
 
-router.get('/no', function(req, res, next) {
-  console.log("no")
-  res.redirect("/discover")
+  // console.log(companies)
+
+  res.render('discover')
+  // res.render('discover', { 
+  //   title: 'Discover', 
+  //   companies: companies, 
+  // });
 });
 
 
@@ -34,5 +32,26 @@ router.get('/test', function(req, res, next) {
   res.redirect('/discover')
 });
 
+async function getJobsArray(){
+  const getRequest = await axios.get('http://localhost:3000/api/employer/all')
+
+  let newArray = getRequest.data.map(function(employer){
+    return {"_id": employer._id, "jobs": employer.jobs}
+  })
+
+  return newArray
+}
+
+async function getTitlesArray(companies){
+  return Promise.all(companies.map(async function(company){
+
+    for(let i = 0; i < company.jobs.length; i++) {
+      const getRequest = await axios.get('http://localhost:3000/api/job/' + company.jobs[i])
+      company.jobs[i] = {'position_title' : getRequest.data[0].position_title, 'skills' : getRequest.data[0].skills}
+    }
+    return company
+  })
+  )
+}
 
 module.exports = router;
