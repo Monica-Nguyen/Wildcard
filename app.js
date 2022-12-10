@@ -22,6 +22,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
 
+// const { Server } = require("socket.io");
+// const io = new Server(server);
+
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
 database.on('error', (error) => {
