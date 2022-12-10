@@ -4,6 +4,7 @@ const router = express.Router()
 const Employee = require('../model/employee');
 const Employer = require('../model/employer')
 const Job = require('../model/job')
+const Match = require('../model/match')
 const bodyParser = require("body-parser");
 const User = require("../model/user");
 const jsonParser = bodyParser.json();

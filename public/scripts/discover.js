@@ -1,5 +1,5 @@
 async function onLoad(){
-    const companies = await getTitlesArray(await getJobsArray());
+    const companies = await getEmployerTitlesArray(await getEmployerJobsArray());
 
     createCarouselFrontEnd(companies)
 }
@@ -101,7 +101,7 @@ function createCompanyLogo(company){
     companyLogoDiv.setAttribute("id", "companyLogo")
 
     let logoImg = document.createElement("img");
-    logoImg.setAttribute("src", "images/" + company.company_name + ".png")
+    logoImg.setAttribute("src", "/images/" + company.company_name + ".png")
     companyLogoDiv.appendChild(logoImg)
 
     return companyLogoDiv
@@ -175,7 +175,7 @@ function createSkills(company){
     return skillsDiv
 }
 
-async function getTitlesArray(companies){
+async function getEmployerTitlesArray(companies){
     return Promise.all(companies.map(async function(company){
 
         for(let i = 0; i < company.jobs.length; i++) {
@@ -187,11 +187,31 @@ async function getTitlesArray(companies){
     )
 }
 
-async function getJobsArray(){
+async function getEmployerJobsArray(){
     const getRequest = await axios.get('http://localhost:3000/api/employer/all')
 
     let newArray = getRequest.data.map(function(employer){
         return {"company_name": employer.company_name, "_id": employer._id, "jobs": employer.jobs}
+    })
+
+    return newArray
+}
+
+async function getEmployeeTitlesArray(){
+    const getRequest = await axios.get('http://localhost:3000/api/employee/all')
+
+    let newArray = getRequest.data.map(function(employee){
+        return {"company_name": employee.company_name, "_id": employee._id, "jobs": employee.jobs}
+    })
+
+    return newArray
+}
+
+async function getEmployeeJobsArray(){
+    const getRequest = await axios.get('http://localhost:3000/api/employee/all')
+
+    let newArray = getRequest.data.map(function(employee){
+        return {"company_name": employee.company_name, "_id": employee._id, "jobs": employee.jobs}
     })
 
     return newArray
