@@ -29,7 +29,7 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
 
     try {
         const dataToSave = await data.save();
-        res.status(200).json(dataToSave);
+        res.status(200).json(dataToSave)
     }
     catch (error) {
         res.status(400).json({message: error.message})
@@ -39,8 +39,7 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
 // GET method to get all Employees
 router.get('/employee/all', async (req, res) => {
     try{
-        const data = (getUser(req));
-        // const data = await Employee.find();
+        const data = await Employee.find();
         res.json(data)
     }
     catch(error){
@@ -52,7 +51,7 @@ router.get('/employee/all', async (req, res) => {
 router.get('/employee/:id', async (req, res) => {
     try{
         const data = await Employee.find({_id:req.params.id});
-        res.json(data);
+        res.json(data)
     }
     catch(error){
         res.status(500).json({message: error.message})
@@ -277,3 +276,13 @@ router.get('/user/all', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
+
+router.get('/discover/yes', function(req, res, next) {
+    console.log("yes")
+    res.redirect("/discover")
+});
+
+router.get('/discover/no', function(req, res, next) {
+    console.log("no")
+    res.redirect("/discover")
+});
