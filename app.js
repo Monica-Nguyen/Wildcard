@@ -10,6 +10,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
 const discoverRouter = require('./routes/discover');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const discoverRouter = require('./routes/discover');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
@@ -31,6 +34,7 @@ const matchesCollection = database.collection('matches')
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
