@@ -52,6 +52,24 @@ router.get('/employee/:id', async (req, res) => {
     }
 })
 
+// PATCH method to update a specific employee
+router.patch('/employee/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedData = req.body;
+        const options = { new: true };
+
+        const result = await Employee.findByIdAndUpdate(
+            id, updatedData, options
+        )
+
+        res.send(result)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
 // ********* EMPLOYER METHODS ***************//
 // POST method to create Employer
 router.post('/employer/create',  jsonParser, async (req, res) => {
@@ -99,7 +117,8 @@ router.post('/job/create',  jsonParser, async (req, res) => {
         position_level: req.body.position_level,
         can_coach: req.body.can_coach,
         skills: req.body.skills,
-        job_details: req.body.job_details
+        is_active: req.body.is_active,
+        job_details: req.body.job_details,
     })
 
     try {
@@ -108,6 +127,46 @@ router.post('/job/create',  jsonParser, async (req, res) => {
     }
     catch (error) {
         res.status(400).json({message: error.message})
+    }
+})
+
+// GET method to get all jobs
+router.get('/job/all', async (req, res) => {
+    try{
+        const data = await Job.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+// GET method to get a specific job
+router.get('/job/:id', async (req, res) => {
+    try{
+        const data = await Job.find({_id:req.params.id});
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+// PATCH method to update a specific job
+router.patch('/job/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updatedData = req.body;
+        const options = { new: true };
+
+        const result = await Job.findByIdAndUpdate(
+            id, updatedData, options
+        )
+
+        res.send(result)
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message })
     }
 })
 
@@ -137,18 +196,5 @@ router.post('/job/company',  jsonParser, async (req, res) => {
     }
     catch (error) {
         res.status(400).json({message: error.message})
-    }
-
-
-})
-
-// GET method to create Job
-router.get('/job/all',  jsonParser, async (req, res) => {
-    try{
-        const data = await Job.find();
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
     }
 })

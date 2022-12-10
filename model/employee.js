@@ -26,7 +26,7 @@ const employeeSchema = new mongoose.Schema({
         type: [String]
     },
     preferred_job_details: {
-        required: true,
+        required: false,
         type: [String]
     },
     matches: [

@@ -21,8 +21,12 @@ const jobSchema = new mongoose.Schema({
         required: true,
         type: [String]
     },
-    job_details: {
+    is_active: {
         required: true,
+        type: Boolean
+    },
+    job_details: {
+        required: false,
         type: [String]
     },
 })
