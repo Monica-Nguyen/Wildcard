@@ -4,47 +4,30 @@
     <meta charset="UTF-8" />
     <title>Discover</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
-  <body>
-    <div id="mainDiscContentDiv">
-        <div id="companyAndMatch">
-            <div id="companyTitle">
-                <h1><%= companyTitle %></h1>
-            </div>
-            <div id="companyLogo">
-                <img src="images/testImg.png">
-            </div>
-            <div id="match">
-                <a href="discover/yes">
-                    <span class="material-symbols-outlined">check_circle</span>
-                </a>
-                <a href="discover/no">
-                    <span class="material-symbols-outlined">cancel</span>
-                </a>
-            </div>
-        </div>
+  <body onload="onLoad()">
 
-        <div id="info">
-            <div id="looking">
-                <h1>Looking for</h1>
-                <ul>
-                    <li>Apple Enjoyer</li>
-                    <li>Apple Chef</li>
-                    <li>Apple observer</li>
-                </ul>
-            </div>
-            <div id="skillsDivs">
-                <h1>Skills</h1>
-                <ul>
-                    <li>Eating Apples</li>
-                    <li>Cooking Apples</li>
-                    <li>Seeing Apples</li>
-                </ul>
-            </div>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
         </div>
-    </div>
-  </body>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts/jquery-3.6.1.slim.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="scripts/discover.js"></script>
+    </body>
 </html>

@@ -198,3 +198,36 @@ router.post('/job/company',  jsonParser, async (req, res) => {
         res.status(400).json({message: error.message})
     }
 })
+
+// GET method to create Job
+router.get('/job/all',  jsonParser, async (req, res) => {
+    try{
+        const data = await Job.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+// GET method to get a specific employer
+router.get('/job/:id', async (req, res) => {
+    try{
+        const data = await Job.find({_id:req.params.id});
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+
+router.get('/discover/yes', function(req, res, next) {
+    console.log("yes")
+    res.redirect("/discover")
+  });
+  
+  router.get('/discover/no', function(req, res, next) {
+    console.log("no")
+    res.redirect("/discover")
+  });
