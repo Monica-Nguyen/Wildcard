@@ -6,13 +6,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const api= require('./routes/api');
 const login = require("./routes/login")
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
-const discoverRouter = require('./routes/discover');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const discoverRouter = require('./routes/discover');
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;

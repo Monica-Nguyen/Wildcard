@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const api = require('../routes/api.js');
 const axios = require('axios');
-const matches = require('../models/Matches.js')(mongoose);
+const matches = require('../model/match.js')(mongoose);
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
