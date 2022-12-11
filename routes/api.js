@@ -223,12 +223,16 @@ router.get('/job/:id', async (req, res) => {
 })
 
 
-router.get('/discover/yes', function(req, res, next) {
+router.post('/discover/yes', function(req, res, next) {
     console.log("yes")
+    console.log(req.body.id)
+    //TODO
+    //make hardcoded matches
     res.redirect("/discover")
-  });
+});
   
-  router.get('/discover/no', function(req, res, next) {
+router.post('/discover/no', function(req, res, next) {
     console.log("no")
+    //if we have time remove element from carasoul should be easy
     res.redirect("/discover")
-  });
+});
