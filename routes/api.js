@@ -80,7 +80,6 @@ router.post('/employer/create',  jsonParser, async (req, res) => {
     const data = new Employer({
         company_name: req.body.company_name
     })
-
     try {
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)
@@ -182,7 +181,8 @@ router.post('/job/company',  jsonParser, async (req, res) => {
         position_level: req.body.position_level,
         can_coach: req.body.can_coach,
         skills: req.body.skills,
-        job_details: req.body.job_details
+        is_active: req.body.is_active,
+        job_details: req.body.job_details,
     });
     try {
         const dataToSave = await data.save();
@@ -235,7 +235,7 @@ router.post('/user/create', jsonParser,  async (req, res) => {
 //check if a user with email and pass exists
 router.post('/user/exist', jsonParser,  async (req, res) => {
     User.findOne({"email": req.body.email}, function(error, exist) {
-        
+
         console.log("req is :" ,exist)
         if(exist && !error){
 
@@ -262,13 +262,12 @@ router.post('/user/exist', jsonParser,  async (req, res) => {
 
 
 
-    router.get('/user/all', async (req, res) => {
-        try{
-            const data = await User.find();
-            res.json(data)
-        }
-        catch(error){
-            res.status(500).json({message: error.message})
-        }
-    })
-    
+router.get('/user/all', async (req, res) => {
+    try{
+        const data = await User.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
