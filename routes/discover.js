@@ -7,17 +7,17 @@ const matches = require('../model/match.js')(mongoose);
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  // const skillsArray = []
-
   // const companies = await getTitlesArray(await getJobsArray());
-
   // console.log(companies)
 
-  res.render('discover')
-  // res.render('discover', { 
-  //   title: 'Discover', 
-  //   companies: companies, 
-  // });
+  //check if employeer or employee
+  //then render appr frontend
+  const isEmployee = true;
+
+  if(isEmployee)
+    res.render('discoverEmployee')
+  else
+    res.render('discoverEmployer')
 });
 
 

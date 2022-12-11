@@ -42,7 +42,7 @@ function createCompanyAndMatch(company){
 
     let companyTitleDiv = createCompanyTitle(company)
     let createCompanyLogoDiv = createCompanyLogo(company)
-    let matchDiv = createMatch()
+    let matchDiv = createMatch(company)
 
     companyAndMatchDiv.setAttribute("id", "companyAndMatch")
 
@@ -53,13 +53,27 @@ function createCompanyAndMatch(company){
     return companyAndMatchDiv
 }
 
-function createMatch(){
+function createMatch(company){
     let matchDiv = document.createElement("div");
+
+    let hiddenAcceptField = document.createElement("input")
+    let hiddenDeclineField = document.createElement("input")
+
+    let acceptButton = document.createElement("button")
+    let declineButton = document.createElement("button")
 
     let acceptLogo = document.createElement("span");
     let declineLogo = document.createElement("span");
     let acceptLogoText = document.createTextNode("check_circle")
     let declineLogoText = document.createTextNode("cancel")
+
+    hiddenAcceptField.setAttribute("type", "hidden")
+    hiddenAcceptField.setAttribute("name", "id")
+    hiddenAcceptField.setAttribute("value", company._id)
+
+    hiddenDeclineField.setAttribute("type", "hidden")
+    hiddenDeclineField.setAttribute("name", "id")
+    hiddenDeclineField.setAttribute("value", company._id)
 
     acceptLogo.setAttribute("class", "material-symbols-outlined")
     declineLogo.setAttribute("class", "material-symbols-outlined")
@@ -67,19 +81,28 @@ function createMatch(){
     acceptLogo.appendChild(acceptLogoText)
     declineLogo.appendChild(declineLogoText)
 
-    let acceptAEl = document.createElement("a");
-    let declineAEl = document.createElement("a");
+    acceptButton.appendChild(acceptLogo)
+    declineButton.appendChild(declineLogo)
 
-    acceptAEl.setAttribute("href", "/api/discover/yes")
-    declineAEl.setAttribute("href", "/api/discover/no")
+    let acceptFormEl = document.createElement("form");
+    let declineFormEl = document.createElement("form");
 
-    acceptAEl.appendChild(acceptLogo)
-    declineAEl.appendChild(declineLogo)
+    //add hidden field for employee/employeer id
+    acceptFormEl.setAttribute("action", "/api/discover/yes")
+    acceptFormEl.setAttribute("method", "post")
 
+    declineFormEl.setAttribute("action", "/api/discover/no")
+    declineFormEl.setAttribute("method", "post")
+
+    acceptFormEl.appendChild(hiddenAcceptField)
+    acceptFormEl.appendChild(acceptButton)
+
+    declineFormEl.appendChild(declineButton)
+    declineFormEl.appendChild(hiddenDeclineField)
     matchDiv.setAttribute("id", "match")
 
-    matchDiv.appendChild(acceptAEl)
-    matchDiv.appendChild(declineAEl)
+    matchDiv.appendChild(acceptFormEl)
+    matchDiv.appendChild(declineFormEl)
 
     return matchDiv
 }
@@ -197,22 +220,3 @@ async function getEmployerJobsArray(){
     return newArray
 }
 
-async function getEmployeeTitlesArray(){
-    const getRequest = await axios.get('http://localhost:3000/api/employee/all')
-
-    let newArray = getRequest.data.map(function(employee){
-        return {"company_name": employee.company_name, "_id": employee._id, "jobs": employee.jobs}
-    })
-
-    return newArray
-}
-
-async function getEmployeeJobsArray(){
-    const getRequest = await axios.get('http://localhost:3000/api/employee/all')
-
-    let newArray = getRequest.data.map(function(employee){
-        return {"company_name": employee.company_name, "_id": employee._id, "jobs": employee.jobs}
-    })
-
-    return newArray
-}
