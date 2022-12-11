@@ -1,6 +1,8 @@
 let totalJobs;
 let company;
 let companyID;
+let companyJobs = [];
+let jobID;
 const opts = {
     plugins: ['remove_button'],
     create: true,
@@ -48,9 +50,10 @@ async function getJobTitles() {
         let jobsInfo = `<div class="mb-3"><h5 class="form-headers">Current Jobs</h5></div>`;
         for (let i = 0; i<totalJobs.length; i++) {
             let job = await getJobTitle(totalJobs[i]);
+            companyJobs.push(job);
             title = job[0]['position_title'];
             level = job[0]['position_level'];
-            jobsInfo += `<span class="input-group-btn"><div>${title} : ${level}<button class="btn" onclick="editJob(job[0]['_id'])"><span class="material-symbols-outlined">edit</span></button></div></span>`;
+            jobsInfo += `<span class="input-group-btn"><div>${title} : ${level}<button class="btn" id="${i}" onclick="editJob(this.id)"><span class="material-symbols-outlined">edit</span></button></div></span>`;
         }
         document.getElementById('job-list').innerHTML = jobsInfo;
     }
@@ -77,7 +80,7 @@ function addJobCreateOptions() {
         </div>
         <div id="current-jobs"></div>
         <div class="mb-3">
-            <button class="btn" onclick="addNewJobs()"><span class="material-symbols-outlined">add_circle</span></button> Add Job </div>
+            <button class="btn" onclick="addNewJobs(true)"><span class="material-symbols-outlined">add_circle</span></button> Add Job </div>
         `
     companyOption.innerHTML += newOptions;
     document.getElementById("company-name-input").placeholder = company;
@@ -89,12 +92,6 @@ async function createCompany() {
         document.getElementById("name-error").innerHTML = "Name cannot be blank";
     } else {
         let saveStatus = document.getElementById("save-status");
-        saveStatus.innerHTML =
-            `
-        <button id="create-save-button">
-          <i class="fa fa-spinner fa-spin"></i>Saving
-        </button>
-        `;
         let response = await fetch(`http://localhost:3000/api/employer/create`, {
             method: "POST",
             headers: {
@@ -113,8 +110,8 @@ async function createCompany() {
     }
 }
 
-async function addNewJobs() {
-    document.getElementById("job-space-fill").innerHTML =
+async function addNewJobs(is_new, skills=null, details=null) {
+    let jobSpaceForm =
         `
         <div class="card-space"></div>
         <div class="flex-container">
@@ -188,11 +185,42 @@ async function addNewJobs() {
                 </div>
             </div>
             <div class="card-space"></div>
-            <button id="create-save-job" class="btn btn-primary" onclick="createJob()" type="button"> Save </button>
-        </div>
         `
-    new TomSelect("#select-tags-skills", opts);
-    new TomSelect("#select-tags-details", opts);
+        if (is_new){
+            jobSpaceForm += getJobCreateSaveButton();
+        }
+        else {
+            jobSpaceForm += getJobEditSaveButton();
+        }
+    document.getElementById("job-space-fill").innerHTML = jobSpaceForm;
+    let tomSkills = new TomSelect("#select-tags-skills", opts);
+    let tomDetails = new TomSelect("#select-tags-details", opts);
+
+    if (skills.length > 0 ) {
+        for (let i=0; i <skills.length; i++){
+            tomSkills.addItem(skills[i]);
+        }
+    }
+    console.log(details);
+
+    if (details.length > 0 ) {
+        for (let i=0; i <details.length; i++){
+            tomDetails.addItem(details[i]);
+        }
+    }
+
+}
+
+function getJobCreateSaveButton(){
+    return `<span><button id="create-save-job" class="btn btn-primary" onclick="createJob()" type="button"> Save </button><button style="margin-left: 10px;" id="create-save-job" class="btn btn-primary" onclick="clearJobSpace()" type="button"> Cancel </button></span></div>`
+}
+
+function getJobEditSaveButton(){
+    return `<span><button id="create-save-job" class="btn btn-primary" onclick="updateJob()" type="button"> Save </button><button style="margin-left: 10px;" id="create-save-job" class="btn btn-primary" onclick="clearJobSpace()" type="button"> Cancel </button></span></div>`
+}
+
+function clearJobSpace(){
+    document.getElementById("job-space-fill").innerHTML = "";
 }
 
 async function createJob() {
@@ -224,10 +252,68 @@ async function createJob() {
                 "can_coach": canCoach,
                 "is_active": true,
                 "skills": skillItems,
-                "preferred_job_details": detailItems
+                "job_details": detailItems
             })
         });
         let data = await response.json();
+        window.location.reload();
     }
 }
 
+function editJob(ID) {
+    let selectJob = companyJobs[ID][0];
+    let coachValue;
+    console.log(selectJob);
+    jobID = selectJob['_id'];
+    console.log(jobID);
+    addNewJobs(false, selectJob["skills"], selectJob["job_details"]);
+    document.getElementById('position-title-input').value = selectJob["position_title"];
+    let $radios = $('input:radio[name=position_level]');
+    let checkedLevel = '[value='+selectJob["position_level"]+']'
+    $radios.filter(checkedLevel).prop('checked', true);
+    $radios = $('input:radio[name=can_coach]');
+    if (selectJob["can_coach"] == true){
+        coachValue = 'Yes';
+    }
+    else {
+        coachValue = 'No';
+    }
+    let checkedCoach = '[value='+coachValue+']'
+    $radios.filter(checkedCoach).prop('checked', true);
+}
+
+async function updateJob() {
+    let positionTitle = $('#position-title-input').val();
+    if (positionTitle == "") {
+        document.getElementById("position-error").innerHTML = "Position Title cannot be blank";
+    }
+    else{
+        let positionLevel = document.querySelector('input[name="position_level"]:checked').value;
+        let canCoach = document.querySelector('input[name="can_coach"]:checked').value;
+        let skillItems = $('#select-tags-skills').val();
+        let detailItems = $('#select-tags-details').val();
+        if (canCoach == 'Yes'){
+            canCoach = true;
+        }
+        else {
+            canCoach = false;
+        }
+        let jobURL = 'http://localhost:3000/api/job/' + jobID
+        let response = await fetch(jobURL, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "position_title": positionTitle,
+                "position_level": positionLevel,
+                "can_coach": canCoach,
+                "is_active": true,
+                "skills": skillItems,
+                "job_details": detailItems
+            })
+        });
+        let data = await response.json();
+        window.location.reload();
+    }
+}
