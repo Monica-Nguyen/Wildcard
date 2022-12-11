@@ -7,7 +7,6 @@ const Job = require('../model/job')
 const bodyParser = require("body-parser");
 const User = require("../model/user");
 const jsonParser = bodyParser.json();
-
 const mongoose = require('mongoose');
 
 module.exports = router;

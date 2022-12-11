@@ -25,3 +25,9 @@ router.get('/employee-form/', (req, res) => {
     res.render('employee_form');
     //else they can proceed to their profile page
 });
+
+router.get('/add-job/', (req, res) => {
+    // if user does not have a profile type set up they should create account
+    res.render('add_job');
+    //else they can proceed to their profile page
+});

@@ -30,6 +30,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
     "request": "^2.88.2",
-    "socket.io": "^4.5.4"
+    "socket.io": "^4.5.4",
+    "tom-select": "^2.2.2"
   }
 }
