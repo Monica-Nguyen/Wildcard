@@ -10,7 +10,20 @@
   <body>
     <div class="chat-page">
       <div class="grid">
-        <div class="nav"><button type="button">Navigation Here</button></div>
+        <div class="nav">
+          <button class="dropbtn">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+            <a href="#">Discover</a>
+            <a href="#">Message</a>
+          </div>
+        </div>
         <div class="messages">
           <h2>Messages</h2>
           <div class="matches">Insert Jobs here</div>
@@ -28,7 +41,7 @@
           <form>
             <input
               type="text"
-              value="Type a message.."
+              placeholder="Type a message.."
               class="input"
               autocomplete="off"
               autofocus

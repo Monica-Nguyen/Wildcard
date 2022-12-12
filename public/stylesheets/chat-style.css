@@ -131,7 +131,9 @@ form button:hover {
   padding-left: 15px;
 }
 
-.chat li:nth-child(odd) {
+
+
+/* .chat li:nth-child(odd) {
   padding: 0.5rem;
   margin-left: 650px;
   width: 350px;
@@ -140,7 +142,7 @@ form button:hover {
   margin-right: 0px;
   list-style: none;
   padding-left: 15px;
-}
+} */
 
 .useless-space {
   grid-column-start: 2;
@@ -162,4 +164,48 @@ form button:hover {
 
 .description {
   padding: 20px;
+}
+
+.nav .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #38a3a5;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.nav:hover .dropdown-content {
+  display: block;
+}
+
+.line {
+  width: 45px;
+  height: 6px;
+  background-color: white;
+  margin: 8px 0;
 }
