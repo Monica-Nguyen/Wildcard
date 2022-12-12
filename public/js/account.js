@@ -169,7 +169,7 @@ async function addNewJobs(is_new, skills=null, details=null) {
             </div>
             <div class="container">
                 <div class="card-space"></div>
-                <label class="form-label">Add Job Details</label>
+                <label class="form-label">Add Job Details (optional)</label>
                 <div class="row">
                     <div class="p-4">
                         <select style="width: 600px" id="select-tags-details" multiple>
@@ -212,11 +212,11 @@ async function addNewJobs(is_new, skills=null, details=null) {
 }
 
 function getJobCreateSaveButton(){
-    return `<span><button id="create-save-job" class="btn btn-primary" onclick="createJob()" type="button"> Save </button><button style="margin-left: 10px;" id="create-save-job" class="btn btn-primary" onclick="clearJobSpace()" type="button"> Cancel </button></span></div>`
+    return `<span><button id="create-save-job" class="btn btn-primary" onclick="createJob()" type="button"> Save </button><button style="margin-left: 10px;" id="create-save-job" class="btn btn-danger" onclick="clearJobSpace()" id="cancel-button" type="button"> Cancel </button></span></div>`
 }
 
 function getJobEditSaveButton(){
-    return `<span><button id="create-save-job" class="btn btn-primary" onclick="updateJob()" type="button"> Save </button><button style="margin-left: 10px;" id="create-save-job" class="btn btn-primary" onclick="clearJobSpace()" type="button"> Cancel </button></span></div>`
+    return `<span><button id="create-save-job" class="btn btn-primary" onclick="updateJob()" type="button"> Save </button><button style="margin-left: 10px;" id="create-save-job" class="btn btn-danger" onclick="clearJobSpace()" id="cancel-button" type="button"> Cancel </button></span></div>`
 }
 
 function clearJobSpace(){
