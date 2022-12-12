@@ -20,21 +20,21 @@
           <div class="dropdown-content">
             <a href="#">Profile</a>
             <a href="#">Logout</a>
-            <a href="#">Discover</a>
+            <a href="/discover">Discover</a>
             <a href="#">Message</a>
           </div>
         </div>
         <div class="messages">
           <h2>Messages</h2>
+          <span id="matches-logo"></span>
           <div class="matches"><h3 id="matches-list"></h3><h4 id="job">Software Developer</h4></div>
         </div>
         <div class="banner">
-          <div class="logo"></div>
-
+          <span id="banner-logo"></span>
           <h1 id="employer">Conversation with Oracle</h1>
-          <h2>You matched on the</h2>
-            <h2 class="actual-job-name">Software Developer </h2>
-          <h2>job on 12/12/2022</h2>
+          <h2 id="first-banner-text">You matched on the </h2>
+            <h2 class="actual-job-name">Software Developer</h2>
+          <h2> job on 12/12/2022</h2>
           
         </div>
         <div class="chat">
@@ -60,12 +60,16 @@
             if (username == "Steve") {
               document.getElementById("employer").innerText = "Conversation with Oracle"
               document.getElementById("matches-list").innerText = "Oracle"
+              document.getElementById("matches-logo").className = "avatar";
+              document.getElementById("banner-logo").className = "avatar";
             }
             else {
               document.getElementById("employer").innerText = "Conversation with Steve Doe"
               document.getElementById("matches-list").innerText = "Steve Doe"
+              document.getElementById("matches-logo").className = "steve";
+              document.getElementById("banner-logo").className = "steve";
             }
-
+            document.getElementById("first-banner-text").className = "first-banner-text";
             socket.emit("hello", "hello from client");
             socket.on("hello", function (msg) {
               console.log(msg);
@@ -142,9 +146,10 @@
             }
           </script>
         </div>
-        <div class="useless-space"></div>
+        <div class="useless-space">
+          <span class="avatar"></span>
+        </div>
         <div class="role">
-          <h2>Logo Placeholder</h2>
           <h2>Oracle</h2>
           <h2>Software Developer</h2>
           <div class="description">

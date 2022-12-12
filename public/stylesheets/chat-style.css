@@ -38,10 +38,32 @@
   padding: 20px;
   color: white;
   font-size: 24;
+  margin-left: 20px;
 }
 
 .matches {
   padding: 20px;
+  cursor: pointer;
+}
+
+#matches-list {
+  margin-left: 75px;
+}
+
+#job {
+  margin-left: 75px;
+}
+
+.messages .steve {
+  float: left;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.messages .avatar {
+  float: left;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .banner {
@@ -55,18 +77,31 @@
   padding-top: 10px;
 }
 
+.banner .avatar {
+  margin-left: 10px;
+  float: left;
+}
+
+.banner .steve {
+  margin-left: 10px;
+  float: left;
+}
+
 .actual-job-name {
   color: #80ed99;
-  display: inline;
 }
 
 .banner h1 {
   font-size: 36;
+  margin-left: 85px;
 }
 
 .banner h2 {
-  font-size: 1;
   display: inline;
+}
+
+.first-banner-text {
+  margin-left: 10px;
 }
 
 .chat {
@@ -137,7 +172,7 @@ form button:hover {
   padding: 0.5rem;
   margin-left: 650px;
   width: 350px;
-  background-color: #57cc99;
+  background-color: #fff;
   border-radius: 50px;
   margin-right: 0px;
   list-style: none;
@@ -212,4 +247,26 @@ form button:hover {
   height: 6px;
   background-color: white;
   margin: 8px 0;
+}
+
+.avatar {
+  content: url(../images/oracle.wine.png);
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 10px;
+  margin-left:140px;
+  background-color: #bbb;
+} 
+
+.steve {
+  content: url(../images/Steve.png);
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-top: 10px;
+  margin-left:140px;
+  background-color: #bbb;
 }
