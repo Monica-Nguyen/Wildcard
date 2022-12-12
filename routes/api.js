@@ -274,6 +274,8 @@ router.post('/discover/yes', jsonParser, async(req, res) => {
         catch (error) {
             res.status(400).json({message: error.message})
         }      
+    } else {
+        console.log("not hardcoded")
     }
 
 });
