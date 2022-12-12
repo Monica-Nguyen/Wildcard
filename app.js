@@ -6,12 +6,14 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const api= require('./routes/api');
 const login = require("./routes/login")
+const signup = require("./routes/signup")
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
 const database = mongoose.connection;
 const app = express();
 
+const user = require("./routes/user")
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
 database.on('error', (error) => {
@@ -35,6 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', api)
 app.use('/',login)
+app.use('/user', user) 
+
+app.use("/signup",signup)
+
 
 
 // catch 404 and forward to error handler

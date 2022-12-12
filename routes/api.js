@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt')
 const router = express.Router()
 const Employee = require('../model/employee');
 const Employer = require('../model/employer')
@@ -208,8 +209,8 @@ router.post('/job/company',  jsonParser, async (req, res) => {
 router.post('/user/create', jsonParser,  async (req, res) => {
     const data = new User({
         email: req.body.email,
-        password: req.body.password
-      
+        password: req.body.password,
+        user_type: req.body.user_type
     })
 
     try {
@@ -222,14 +223,22 @@ router.post('/user/create', jsonParser,  async (req, res) => {
 })
 
 //check if a user with email and pass exists
-router.get('/user/exist', jsonParser,  async (req, res) => {
+router.post('/user/exist', jsonParser,  async (req, res) => {
     mongoose.model('user').findOne({"email": req.body.email}, function(error, exist) {
         
-        console.log("req is :" ,req)
+        console.log("req is :" ,exist)
         if(exist && !error){
 
             res.status(200).send({"email_given": req.body.email, "bool" : 1, "message" : "DOES EXIST"})
 
+            if (exist.password == req.body.password){
+
+                console.log("password is correct")
+                // res.redirect('/')
+            }else{
+
+                console.log("password is wrong")
+            }
 
         }else if (!exist && !error){
 

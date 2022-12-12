@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/signupStyle.css">
+    <script src="/javascript/signup.js"> </script> 
+</head>
+<body>
+
+    <h1 id="wildcardTitle"> WILDCARD</h1>
+
+
+    <div id="greenBox">
+
+
+        <h2 id="CreateTitle">Create an Account</h2>
+            
+        <form id = "signup-form">
+
+            <label class = "label1" for="email">Email</label> 
+            
+            <input type="text" id="email" name="email"> <br><br>
+            
+            <label class = "label1" for="password">Password</label> 
+            
+            <input type="password" id="password" name="password"><br> <br>
+
+            <div id = "radio-div"> 
+            <input type="radio" id="employeeRadio" name="user_type" value="employee">
+            <label class = "label2" for="employeeRadio">Employee</label><br><br>
+
+            <input type="radio" id="employerRadio" name="user_type" value="employer">
+            <label class = "label2" for="employerRadio">Employer</label><br>
+            </div>
+
+            <input id="submitButton" type="submit" value="Submit" onclick="postUser()"> 
+            
+
+        </form>
+
+    </div>
+
+
+</body>
+</html>

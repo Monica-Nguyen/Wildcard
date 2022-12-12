@@ -1,0 +1,118 @@
+
+body{
+    background-color:#22577A ;
+    color: white;
+}
+  
+
+
+#greenBox{
+    width: 90%; 
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-top: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 25px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    /* margin-top: 10%;
+    margin-bottom: 23%; */
+    background-color:#38A3A5 ;
+    
+    
+  }
+  
+#WildcardTitle{
+    text-align: center;
+    color: white;
+  }
+  
+  
+
+  
+#CreateTitle{
+    text-align:center;
+}
+
+
+
+#submitButton{
+    color:white;
+    border:none;
+    width: 30%; 
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 40%;
+    margin-right: 40%;
+    padding-top: 17px;
+    /* padding-left: 40px;
+    padding-right: 40px; */
+    padding-bottom: 17px; 
+    border-radius: 15px;
+    text-align: center;
+  
+    font-size: 13pt;
+    background-color:#376768;
+  
+  
+  }
+  
+  
+
+input[type=text] {
+padding: 8px 10px;
+margin: 8px 0;
+box-sizing: border-box;
+border-radius: 10px;
+width: 100%;
+border:none;
+/* margin-left: 25%;
+margin-right: 25%; */
+}
+
+
+
+input[type=password] {
+    padding: 8px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100%;
+    border:none;
+    /* margin-left: 25%;
+    margin-right: 25%; */
+    }
+    
+.label1 {
+  display: block;
+  text-align: center;
+  font-size: 15pt;
+}
+
+.label2 {
+  
+  font-size: 15pt;
+}
+  
+
+#submitButton:hover{
+background-color:#57CC99;
+}
+
+#radio-div{
+  margin-left: 39%;
+}
+
+h1 {
+  text-align:center;
+}
+
+#signup-form { 
+  width: 20%;
+  margin-left: 40%; 
+  /* display: inline-block; */
+  box-sizing: border-box;
+}
