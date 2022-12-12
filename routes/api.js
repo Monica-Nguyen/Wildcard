@@ -259,15 +259,10 @@ router.post('/discover/yes', jsonParser, async(req, res) => {
             employer : employer._id
         })
 
-        // if(employee.matches == undefined)
-        //     employee.matches = []
-        // else if(employer.matches == undefined)
-        //     employer.matches = []
-
         try {
             employee.matches.push(newMatch._id)
             employer.matches.push(newMatch._id)
-            
+
             const dataToSave = await newMatch.save();
             const updateEmployee = await Employee.findByIdAndUpdate(employee._id, employee, { new: true })
             const updateEmployer = await Employee.findByIdAndUpdate(employer._id, employer, { new: true })
