@@ -55,6 +55,8 @@
             const messages = document.querySelector(".chat");
             const username = prompt("Please enter a nickname: ", "");
             const socket = io("http://localhost:3000");
+            let messageHistory = [];
+            let jobDetails = "";
 
             socket.emit("hello", "hello from client");
             socket.on("hello", function (msg) {
@@ -63,10 +65,22 @@
 
             form.addEventListener(
               "submit",
-              function (event) {
+              async function (event) {
                 event.preventDefault();
 
                 addMessage(username + ": " + input.value);
+
+                let response = await fetch('http://localhost:3000/message/create/63965a173714f284189d4088', {
+                  method: "POST",
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    "name": username,
+                    "message_body": input.value
+                  })
+                });
+                let data = await response.json();
 
                 socket.emit("chat_message", {
                   message: input.value,
@@ -89,6 +103,35 @@
             socket.on("user_leave", function (data) {
               addMessage(data + " has left the chat.");
             });
+
+            async function getMessageHistory() {
+              let response = await fetch('http://localhost:3000/message/all/63965a173714f284189d4088', {
+                method: 'GET',
+                headers: {
+                  accept: 'application/json',
+                },
+              });
+              messageHistory = await response.json();
+              for (let i=0; i < messageHistory.message_history.length; i++){
+                let message = messageHistory.message_history[i]["author"] + ': ' + messageHistory.message_history[i]["message_body"];
+                addMessage(message);
+              }
+            }
+
+            getMessageHistory();
+            getJobDetails();
+
+            async function getJobDetails() {
+              let response = await fetch('http://localhost:3000/api/job/6396cbba8874ebed81173f62', {
+                method: 'GET',
+                headers: {
+                  accept: 'application/json',
+                },
+              });
+              let data = await response.json();
+              jobDetails = data[0];
+            }
+
 
             addMessage("You have joined the chat as '" + username + "'.");
             socket.emit("user_join", username);
