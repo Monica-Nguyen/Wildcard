@@ -315,11 +315,6 @@ router.post('/discover/yes', jsonParser, async(req, res) => {
             employer : employer._id
         })
 
-        // if(employee.matches == undefined)
-        //     employee.matches = []
-        // else if(employer.matches == undefined)
-        //     employer.matches = []
-
         try {
             employee.matches.push(newMatch._id)
             employer.matches.push(newMatch._id)
