@@ -133,7 +133,7 @@ form button:hover {
 
 
 
-/* .chat li:nth-child(odd) {
+.chat li:nth-child(odd) {
   padding: 0.5rem;
   margin-left: 650px;
   width: 350px;
@@ -142,7 +142,7 @@ form button:hover {
   margin-right: 0px;
   list-style: none;
   padding-left: 15px;
-} */
+} 
 
 .useless-space {
   grid-column-start: 2;
@@ -164,6 +164,10 @@ form button:hover {
 
 .description {
   padding: 20px;
+}
+
+.description li {
+  list-style: none;
 }
 
 .nav .dropbtn {
