@@ -9,6 +9,9 @@ const matchSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId, 
         ref : 'employer' 
     },
+    message_history: [
+        {type : mongoose.Schema.Types.ObjectId, ref : 'message'}
+    ]
 })
 
 module.exports = mongoose.model('match', matchSchema)
