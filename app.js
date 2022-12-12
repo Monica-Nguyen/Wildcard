@@ -9,6 +9,7 @@ const login = require("./routes/login")
 const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
 const indexRouter = require('./routes/index');
+const message = require('./routes/messages')
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
@@ -43,6 +44,7 @@ app.use('/api', api)
 app.use('/',login)
 app.use('/users', usersRouter);
 app.use('/discover', discoverRouter);
+app.use('/message', message);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
