@@ -6,26 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/stylesheets/chat-style.css" />
     <title>Chat</title>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script>
-      console.log("IN CHAT HTMLDKLJSAKDJSAKLDJSKLDJKL");
-      const socket = io("http://localhost:3000");
-      socket.on("connect", () => console.log("connected"));
-    </script>
-    <!-- <script src="http:localhost:3000/socket.io/socket.io.js"></script>
-    <script type="importmap">
-      {
-        "imports": {
-          "socket.io-client": "https://cdn.socket.io/4.4.1/socket.io.esm.min.js"
-        }
-      }
-    </script>
-
-    <script type="module">
-      import { io } from "socket.io-client";
-
-      const socket = io();
-    </script> -->
   </head>
   <body>
     <div class="chat-page">
@@ -45,7 +25,68 @@
           </h2>
         </div>
         <div class="chat">
-          <!--can have the html for chat placed or called here-->
+          <form>
+            <input
+              type="text"
+              value="Type a message.."
+              class="input"
+              autocomplete="off"
+              autofocus
+            />
+            <button>Send</button>
+          </form>
+          <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+          <script>
+            const form = document.querySelector("form");
+            const input = document.querySelector(".input");
+            const messages = document.querySelector(".chat");
+            const username = prompt("Please enter a nickname: ", "");
+            const socket = io("http://localhost:3000");
+
+            socket.emit("hello", "hello from client");
+            socket.on("hello", function (msg) {
+              console.log(msg);
+            });
+
+            form.addEventListener(
+              "submit",
+              function (event) {
+                event.preventDefault();
+
+                addMessage(username + ": " + input.value);
+
+                socket.emit("chat_message", {
+                  message: input.value,
+                });
+
+                input.value = "";
+                return false;
+              },
+              false
+            );
+
+            socket.on("chat_message", function (data) {
+              addMessage(data.username + ": " + data.message);
+            });
+
+            socket.on("user_join", function (data) {
+              addMessage(data + " just joined the chat!");
+            });
+
+            socket.on("user_leave", function (data) {
+              addMessage(data + " has left the chat.");
+            });
+
+            addMessage("You have joined the chat as '" + username + "'.");
+            socket.emit("user_join", username);
+
+            function addMessage(message) {
+              const li = document.createElement("li");
+              li.innerHTML = message;
+              messages.appendChild(li);
+              window.scrollTo(0, document.body.scrollHeight);
+            }
+          </script>
         </div>
         <div class="useless-space"></div>
         <div class="role">

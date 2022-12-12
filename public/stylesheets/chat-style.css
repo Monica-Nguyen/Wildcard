@@ -77,6 +77,71 @@
   background-color: #22577a;
 }
 
+form {
+  position: fixed;
+  bottom: 0;
+  width: 60%;
+  display: flex;
+  box-sizing: border-box;
+  padding: 0.25rem;
+  background-color: #22577a;
+}
+
+form input {
+  border: 0;
+  padding: 0.5rem;
+  width: 100%;
+  outline: 0;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: larger;
+  font-style: bold;
+  border-radius: 0.5rem;
+  background: rgb(255, 255, 255);
+}
+
+form button {
+  width: 6rem;
+  background-color: #57cc99;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  height: 50px;
+  font-size: larger;
+  font-style: bold;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+}
+
+form button:hover {
+  background-color: #9bebc8;
+}
+
+.chat li {
+  padding: 0.5rem;
+  margin: 20px;
+  width: 350px;
+  background-color: #57cc99;
+  border-radius: 50px;
+  margin-left: 50px;
+  list-style: none;
+  padding-left: 15px;
+}
+
+.chat li:nth-child(odd) {
+  padding: 0.5rem;
+  margin-left: 650px;
+  width: 350px;
+  background-color: #57cc99;
+  border-radius: 50px;
+  margin-right: 0px;
+  list-style: none;
+  padding-left: 15px;
+}
+
 .useless-space {
   grid-column-start: 2;
   grid-column-end: 3;
