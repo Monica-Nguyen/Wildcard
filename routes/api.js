@@ -1,10 +1,14 @@
 const express = require('express');
+const bcrypt = require('bcrypt')
 const router = express.Router()
 const Employee = require('../model/employee');
 const Employer = require('../model/employer')
 const Job = require('../model/job')
 const bodyParser = require("body-parser");
+const User = require("../model/user");
 const jsonParser = bodyParser.json();
+
+const mongoose = require('mongoose');
 
 module.exports = router;
 
@@ -198,3 +202,73 @@ router.post('/job/company',  jsonParser, async (req, res) => {
         res.status(400).json({message: error.message})
     }
 })
+
+//************************USER*****************************//
+
+// create User
+router.post('/user/create', jsonParser,  async (req, res) => {
+    console.log(req.body);
+    User.findOne({"username": req.body.username}, async function (error, user) {
+        console.log(user);
+        if (user){
+            res.status(400).json({message: 'Username exists'})
+        }
+        else if (error) {
+            res.status(400).json({message: error.message})
+        }
+        else {
+            const data = new User({
+                username: req.body.username,
+                password: req.body.password,
+            });
+            try {
+                const dataToSave = await data.save();
+                res.status(200).json(dataToSave)
+            } catch (error) {
+                res.status(400).json({message: error.message})
+            }
+        }
+    });
+
+})
+
+//check if a user with email and pass exists
+router.post('/user/exist', jsonParser,  async (req, res) => {
+    User.findOne({"email": req.body.email}, function(error, exist) {
+        
+        console.log("req is :" ,exist)
+        if(exist && !error){
+
+            res.status(200).send({"email_given": req.body.email, "bool" : 1, "message" : "DOES EXIST"})
+
+            if (exist.password == req.body.password){
+
+                console.log("password is correct")
+                // res.redirect('/')
+            }else{
+
+                console.log("password is wrong")
+            }
+
+        }else if (!exist && !error){
+
+            res.status(200).send({"email_given" : req.body.email , "res" : 0 ,  "message" : "DOESNT EXIST"})
+        }else {
+        //IF YOU ARE USING EXPRESS.JS, YOU MUST USE RES.SEND() or RES.END() TO TERMINATE THE CONNECTION
+        res.status(500).send({"ERROR" : "Not Found"});
+        return;
+        }
+    })});
+
+
+
+    router.get('/user/all', async (req, res) => {
+        try{
+            const data = await User.find();
+            res.json(data)
+        }
+        catch(error){
+            res.status(500).json({message: error.message})
+        }
+    })
+    
