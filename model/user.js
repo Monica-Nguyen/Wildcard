@@ -15,4 +15,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+// Setting up the passport plugin
+userSchema.plugin(passportLocalMongoose);
+
 module.exports = mongoose.model('user', userSchema)

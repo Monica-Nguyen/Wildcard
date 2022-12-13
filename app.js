@@ -12,8 +12,10 @@ mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
 const database = mongoose.connection;
 const app = express();
-
-const user = require("./routes/user")
+const connectEnsureLogin = require('connect-ensure-login');
+const passport = require('passport');
+const session = require('express-session');
+const UserDetails = require('./model/user');
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
 database.on('error', (error) => {
@@ -28,35 +30,65 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
+
+// Set up Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(UserDetails.createStrategy());
+passport.serializeUser(UserDetails.serializeUser());
+passport.deserializeUser(UserDetails.deserializeUser());
+
+// Set up session
+app.use(
+    session({
+        secret: process.env.SECRET,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { maxAge: 60000 }
+    })
+);
 
 
 app.use('/api', api)
 app.use('/',login)
-app.use('/user', user) 
+app.use('/user', user)
 
 app.use("/signup",signup)
 
 
+app.get('/secret', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
+    res.send(req.session)
+);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// POST Routes
+app.post(
+    '/login',
+    passport.authenticate('local', {
+      failureRedirect: '/login',
+      successRedirect: '/secret',
+    }),
+    (req, res) => {
+      console.log(req.user);
+    }
+);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 module.exports = app;
