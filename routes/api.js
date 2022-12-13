@@ -208,9 +208,8 @@ router.post('/job/company',  jsonParser, async (req, res) => {
 // create User
 router.post('/user/create', jsonParser,  async (req, res) => {
     const data = new User({
-        email: req.body.email,
+        username: req.body.username,
         password: req.body.password,
-        user_type: req.body.user_type
     })
 
     try {
@@ -224,7 +223,7 @@ router.post('/user/create', jsonParser,  async (req, res) => {
 
 //check if a user with email and pass exists
 router.post('/user/exist', jsonParser,  async (req, res) => {
-    mongoose.model('user').findOne({"email": req.body.email}, function(error, exist) {
+    User.findOne({"email": req.body.email}, function(error, exist) {
         
         console.log("req is :" ,exist)
         if(exist && !error){
