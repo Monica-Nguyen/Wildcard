@@ -4,7 +4,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const api= require('./routes/api');
+const api = require('./routes/api');
+const account = require('./routes/account')
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
@@ -15,6 +16,9 @@ const passport = require('passport');
 const session = require('express-session');
 const user = require('./model/user');
 const request = require('request');
+const $ = require( "jquery" );
+const cons = require('consolidate');
+
 
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
@@ -27,7 +31,9 @@ database.once('connected', () => {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set("view engine", "ejs");
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -61,17 +67,22 @@ app.use(
 );
 
 app.use('/api', api)
+app.use('/account', account)
 
 app.get('/', function(req, res, next) {
-    res.render('login', {})
+    res.render('login.ejs', {})
 });
 
 app.get('/signup', function(req, res, next) {
-    res.render('signup', {})
+    res.render('signup.ejs', {})
 });
 
 app.get('/secret', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
-    res.send(req.session)
+    res.redirect('/account')
+);
+
+app.get('/u', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
+    res.send(req.session.passport.user)
 );
 
 app.get('/logout', (req, res) => {

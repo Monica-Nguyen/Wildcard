@@ -1,0 +1,176 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+
+#page{
+    border-radius: 25px;
+    background: #73AD21;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+/****Choose Account Page f8f9fa**/
+
+#create-account-body {
+    /*background-color: #FFFFFF;*/
+    background-image: url('../images/geometric.jpg');
+
+    /*!* Center and scale the image nicely *!*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+}
+
+#create-account-title {
+    color: #22577A;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 1000;
+    font-size: 48px;
+    padding-bottom: 30px;
+}
+
+.icon-button-card {
+    text-align: center;
+}
+
+.button-card {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    border-radius: 10px;
+}
+
+.card-text {
+    padding-top: 50px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    color: black;
+    padding-bottom: 50px;
+}
+
+.card-space {
+    padding: 20px;
+}
+
+#company-icon {
+    padding-top: 50px;
+    font-size: 100px !important;
+    color: #38A3A5;
+}
+
+#person-icon {
+    padding-top: 50px;
+    font-size: 100px !important;
+    color: #38A3A5;
+}
+
+.card {
+    text-align: center;
+    background-color: #eaf4f4 !important;
+    /*background-image: url("../images/light-green.jpg");*/
+    padding-bottom: 100px;
+    border-color: #22577A;
+}
+
+#employee-button {
+    font-family: 'Roboto', sans-serif;
+    background-color: #38A3A5;
+    color: #FFFFFF;
+}
+
+#employer-button {
+    font-family: 'Roboto', sans-serif;
+    background-color: #38A3A5;
+    color: #FFFFFF;
+}
+
+#create-save-button{
+    font-family: 'Roboto', sans-serif;
+    background-color: #38A3A5;
+    color: #FFFFFF;
+}
+
+
+/** Employer Form**/
+#employer-form-body {
+    background-image: url("../images/geometric.jpg");
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #eaf4f4;
+    font-weight: 100;
+    font-size: 20px;
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid #38A3A5;
+}
+
+
+.form-headers{
+    color: #22577A !important;
+}
+
+.error-validation {
+    color: red;
+}
+
+#cancel-button {
+    margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
+    background-color: red;
+    color: #FFFFFF;
+}
+
+#success-check-icon {
+    color: #38A3A5;
+}
+
+.job-form-fields {
+    padding-top: 15px;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #eaf4f4;
+    font-weight: 100;
+    font-size: 20px;
+    width: 50%;
+    margin: auto;
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid #38A3A5;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#job-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
