@@ -83,7 +83,7 @@ app.get('/logout', (req, res) => {
 app.post(
     '/login',
     passport.authenticate('local', {
-      failureRedirect: '/login',
+      failureRedirect: '/',
       successRedirect: '/secret',
     }),
     (req, res) => {
@@ -92,29 +92,17 @@ app.post(
 );
 
 app.post("/register", async (req, res) => {
-
-    let apiURL = 'http://localhost:3000/api/user/create';
-
-    const requestOptions = {
-        url: apiURL,
-        method: 'POST',
-        json: {
-            username: req.body.username,
-            password: req.body.password,
+    console.log(req.body)
+    user.register(new user({username: req.body.username, password: req.body.password}), req.body.password, (err, user) => {
+        if(err) {
+            console.log(err);
+            res.send('There was an error');
+        } else {
+            passport.authenticate('local')(req, res, () => {
+                res.redirect('/secret');
+            })
         }
-    };
-    request(requestOptions, (err, response, body) => {
-        console.error('error:', err); // Print the error if one occurred
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        console.log('responseMessage:', response.body.message)
-        if (response.statusCode != 200){
-            res.render('signup', {error: response.body.message})
-        }
-        else {
-            res.redirect('/')
-        }
-    });
-
+    })
 });
 
 module.exports = app;

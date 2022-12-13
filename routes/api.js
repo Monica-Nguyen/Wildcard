@@ -221,8 +221,6 @@ router.post('/user/create', jsonParser,  async (req, res) => {
                 username: req.body.username,
                 password: req.body.password,
             });
-            const salt = await bcrypt.genSalt(10);
-            data.password = await bcrypt.hash(data.password, salt);
             try {
                 const dataToSave = await data.save();
                 res.status(200).json(dataToSave)

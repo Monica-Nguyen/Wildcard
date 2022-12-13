@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
+const bcrypt = require("bcrypt");
 
 
 const userSchema = new mongoose.Schema({
@@ -15,5 +16,6 @@ const userSchema = new mongoose.Schema({
 
 // Setting up the passport plugin
 userSchema.plugin(passportLocalMongoose);
+
 
 module.exports = mongoose.model('user', userSchema)
