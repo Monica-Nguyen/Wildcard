@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    email: {
+    username: {
         required: true,
         type: String
     },
@@ -9,10 +9,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    user_type:{
-        required: true,
-        type: String
-    }
 })
 
 // Setting up the passport plugin
