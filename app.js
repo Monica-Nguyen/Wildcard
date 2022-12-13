@@ -15,7 +15,7 @@ const app = express();
 const connectEnsureLogin = require('connect-ensure-login');
 const passport = require('passport');
 const session = require('express-session');
-const UserDetails = require('./model/user');
+const user = require('./model/user');
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
 database.on('error', (error) => {
@@ -47,9 +47,9 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(UserDetails.createStrategy());
-passport.serializeUser(UserDetails.serializeUser());
-passport.deserializeUser(UserDetails.deserializeUser());
+passport.use(user.createStrategy());
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
 
 // Set up session
 app.use(
@@ -65,7 +65,6 @@ app.use(
 app.use('/api', api)
 app.use('/',login)
 app.use('/user', user)
-
 app.use("/signup",signup)
 
 
