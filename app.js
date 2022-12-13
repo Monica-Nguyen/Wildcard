@@ -78,7 +78,11 @@ app.get('/signup', function(req, res, next) {
 });
 
 app.get('/secret', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
-    res.send(req.session)
+    res.redirect('/account')
+);
+
+app.get('/u', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
+    res.send(req.session.passport.user)
 );
 
 app.get('/logout', (req, res) => {

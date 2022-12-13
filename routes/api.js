@@ -14,6 +14,8 @@ module.exports = router;
 // ********* EMPLOYEE METHODS ***************//
 // POST method to create an employee
 router.post('/employee/create',  jsonParser, async (req, res) => {
+    let user = await User.find({username:req.session.passport.username})
+    user = user[0]
     const data = new Employee({
         name: req.body.name,
         current_position: req.body.current_position,
@@ -21,12 +23,13 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
         desired_position: req.body.desired_position,
         desired_level: req.body.desired_level,
         skills: req.body.skills,
-        preferred_job_details: req.body.preferred_job_details
+        preferred_job_details: req.body.preferred_job_details,
+        user: user
     })
 
     try {
         const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
+        res.status(200).json(dataToSave);
     }
     catch (error) {
         res.status(400).json({message: error.message})
@@ -36,7 +39,8 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
 // GET method to get all Employees
 router.get('/employee/all', async (req, res) => {
     try{
-        const data = await Employee.find();
+        const data = (getUser(req));
+        // const data = await Employee.find();
         res.json(data)
     }
     catch(error){
@@ -48,7 +52,7 @@ router.get('/employee/all', async (req, res) => {
 router.get('/employee/:id', async (req, res) => {
     try{
         const data = await Employee.find({_id:req.params.id});
-        res.json(data)
+        res.json(data);
     }
     catch(error){
         res.status(500).json({message: error.message})
@@ -76,8 +80,11 @@ router.patch('/employee/:id', async (req, res) => {
 // ********* EMPLOYER METHODS ***************//
 // POST method to create Employer
 router.post('/employer/create',  jsonParser, async (req, res) => {
+    let user = await User.find({username:req.session.passport.username})
+    user = user[0]
     const data = new Employer({
-        company_name: req.body.company_name
+        company_name: req.body.company_name,
+        user: user
     })
     try {
         const dataToSave = await data.save();

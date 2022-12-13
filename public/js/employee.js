@@ -19,7 +19,7 @@ const opts = {
 
 async function checkEmployeeDetails() {
     let personData;
-    let response = await fetch(`http://localhost:3000/api/employee/6396816473a49ec490193f5d`, {
+    let response = await fetch(`http://localhost:3000/api/employee/`, {
         method: 'GET',
         headers: {
             accept: 'application/json',

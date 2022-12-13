@@ -22,7 +22,7 @@ const opts = {
 
 async function checkJobDetails() {
     let companyData;
-    let response = await fetch(`http://localhost:3000/api/employer/639536d30c255e80dadd4fe1`, {
+    let response = await fetch(`http://localhost:3000/api/employer/`, {
         method: 'GET',
         headers: {
             accept: 'application/json',
