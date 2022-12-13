@@ -207,18 +207,31 @@ router.post('/job/company',  jsonParser, async (req, res) => {
 
 // create User
 router.post('/user/create', jsonParser,  async (req, res) => {
-    const data = new User({
-        username: req.body.username,
-        password: req.body.password,
-    })
+    console.log(req.body);
+    User.findOne({"username": req.body.username}, async function (error, user) {
+        console.log(user);
+        if (user){
+            res.status(400).json({message: 'Username exists'})
+        }
+        else if (error) {
+            res.status(400).json({message: error.message})
+        }
+        else {
+            const data = new User({
+                username: req.body.username,
+                password: req.body.password,
+            });
+            const salt = await bcrypt.genSalt(10);
+            data.password = await bcrypt.hash(data.password, salt);
+            try {
+                const dataToSave = await data.save();
+                res.status(200).json(dataToSave)
+            } catch (error) {
+                res.status(400).json({message: error.message})
+            }
+        }
+    });
 
-    try {
-        const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
-    }
-    catch (error) {
-        res.status(400).json({message: error.message})
-    }
 })
 
 //check if a user with email and pass exists

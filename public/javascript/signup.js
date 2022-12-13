@@ -6,10 +6,13 @@
 
 async function postUser() { 
 
-    let username = document.getElementById("email").value
-    let userPassword = document.getElementById("password").value
+    let username = document.getElementById("username").value;
+    let userPassword = document.getElementById("password").value;
 
-    await fetch('http://localhost:3000/api/user/create', {
+
+
+
+    let response = await fetch('http://localhost:3000/api/user/create', {
         method: "POST", 
         headers: {
             accept: "application/json",
@@ -19,9 +22,9 @@ async function postUser() {
             "password": userPassword,
         }
     })
-    .then(function(response) { 
-        console.log(response);
-    })
+
+    let data = response.json();
+    console.log(data);
 }
 
 

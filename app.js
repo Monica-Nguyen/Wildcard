@@ -16,6 +16,9 @@ const connectEnsureLogin = require('connect-ensure-login');
 const passport = require('passport');
 const session = require('express-session');
 const user = require('./model/user');
+const request = require('request');
+const {response} = require("express");
+
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
 database.on('error', (error) => {
@@ -27,10 +30,9 @@ database.once('connected', () => {
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+app.set("view engine", "ejs");
 
-
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -67,6 +69,9 @@ app.use('/',login)
 app.use('/user', user)
 app.use("/signup",signup)
 
+app.get('/', function(req, res, next) {
+    res.render('login', {})
+});
 
 app.get('/secret', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
     res.send(req.session)
@@ -89,5 +94,30 @@ app.post(
     }
 );
 
+app.post("/register", async (req, res) => {
+
+    let apiURL = 'http://localhost:3000/api/user/create';
+
+    const requestOptions = {
+        url: apiURL,
+        method: 'POST',
+        json: {
+            username: req.body.username,
+            password: req.body.password,
+        }
+    };
+    request(requestOptions, (err, response, body) => {
+        console.error('error:', err); // Print the error if one occurred
+        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+        console.log('responseMessage:', response.body.message)
+        if (response.statusCode != 200){
+            res.render('signup', {error: response.body.message})
+        }
+        else {
+            res.redirect('/login')
+        }
+    });
+
+});
 
 module.exports = app;
