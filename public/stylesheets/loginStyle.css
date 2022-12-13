@@ -2,6 +2,7 @@
 
 body{
   background-color:#22577A ;
+  font-family: Roboto, 'sans-serif';
 }
 
 
@@ -82,7 +83,7 @@ label {
   font-size: 15pt;
 }
 
-#loginButton{
+.loginButton {
   color:white;
   border:none;
   width: 50%; 
@@ -130,6 +131,10 @@ background-color:#57CC99;
 
 }
 
-#signupDiv { 
-  margin-top: 150px;
+#signupDiv {
+  display: block;
+  justify-content: center;
+  text-align: center;
+  vertical-align: center;
+  padding-top: 150px;
 }
