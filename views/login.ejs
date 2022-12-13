@@ -12,7 +12,7 @@
         <div id="loginBox">
             <h2 id="loginTitle">LOGIN</h2>
             <form action="/login" method="post" id="signup-form">
-                <label class = "label1" for="username">Username</label>
+                <label for="username">Username</label>
                 <input type="text" id="username" name="username" autocomplete="on"> <br><br>
                 <% if(locals.error) {%>
                 <p class="text-danger"><%=error%></p>
