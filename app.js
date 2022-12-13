@@ -5,8 +5,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const api= require('./routes/api');
-const login = require("./routes/login")
-const signup = require("./routes/signup")
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true)
 const mongoString = process.env.DATABASE_URL;
@@ -17,7 +15,6 @@ const passport = require('passport');
 const session = require('express-session');
 const user = require('./model/user');
 const request = require('request');
-const {response} = require("express");
 
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
@@ -63,14 +60,14 @@ app.use(
     })
 );
 
-
 app.use('/api', api)
-app.use('/',login)
-app.use('/user', user)
-app.use("/signup",signup)
 
 app.get('/', function(req, res, next) {
     res.render('login', {})
+});
+
+app.get('/signup', function(req, res, next) {
+    res.render('signup', {})
 });
 
 app.get('/secret', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
@@ -114,7 +111,7 @@ app.post("/register", async (req, res) => {
             res.render('signup', {error: response.body.message})
         }
         else {
-            res.redirect('/login')
+            res.redirect('/')
         }
     });
 
