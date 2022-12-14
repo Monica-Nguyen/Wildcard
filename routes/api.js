@@ -15,8 +15,8 @@ module.exports = router;
 // ********* EMPLOYEE METHODS ***************//
 // POST method to create an employee
 router.post('/employee/create',  jsonParser, async (req, res) => {
-    let user = await User.find({username:req.session.passport.username})
-    user = user[0]
+    let user = await User.find({username:req.session.passport.username});
+    user = user[0];
     const data = new Employee({
         name: req.body.name,
         current_position: req.body.current_position,
