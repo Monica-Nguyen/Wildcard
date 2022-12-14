@@ -28,6 +28,9 @@ const matches = require("./routes/matches");
 // const io = new Server(server);
 const profilePage= require('./routes/profile');
 const {errors} = require("passport-local-mongoose");
+const Employee = require("./model/employee");
+const User = require("./model/user");
+const Employer = require("./model/employer");
 
 
 //Start connection to database and log status to console
@@ -85,8 +88,29 @@ app.use("/chat", chat);
 app.use('/message', message);
 app.use("/matches", matches);
 
-app.get('/', function(req, res, next) {
-    res.render('login.ejs', {})
+app.get('/', async function (req, res, next) {
+    if (req.isAuthenticated()) {
+        let user = await User.find({username: req.user.username});
+        user = user[0];
+        console.log(user._id);
+        let employee_result = await Employee.aggregate([
+            {"$match": {"user": user._id}},
+        ]);
+        let employer_result = await Employer.aggregate([
+            {"$match": {"user": user._id}},
+        ]);
+        if (employee_result.length > 0) {
+            res.redirect('/profile/employee')
+        }
+        else if (employer_result.length > 0) {
+            res.redirect('/profile/employer')
+        }
+        else {
+            res.redirect('account/')
+        }
+    } else {
+        res.render('login.ejs', {})
+    }
 });
 app.use('/profile', profilePage)
 
@@ -97,10 +121,6 @@ app.get('/login', function(req, res, next) {
 app.get('/signup', function(req, res, next) {
     res.render('signup.ejs', {})
 });
-
-app.get('/secret', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
-    res.redirect('/account')
-);
 
 app.get('/u', connectEnsureLogin.ensureLoggedIn(), (req, res) =>
     res.send(req.session.passport.user)
@@ -116,7 +136,7 @@ app.post(
     '/login',
     passport.authenticate('local', {
       failureRedirect: '/',
-      successRedirect: '/secret',
+      successRedirect: '/',
     }),
     (req, res) => {
       console.log(req.user);
