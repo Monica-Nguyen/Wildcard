@@ -151,7 +151,7 @@ app.post("/register", async (req, res) => {
             res.render('signup.ejs', {error: err.message});
         } else {
             passport.authenticate('local')(req, res, () => {
-                res.redirect('/secret');
+                res.redirect('/');
             })
         }
     })
