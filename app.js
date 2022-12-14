@@ -21,7 +21,8 @@ const cons = require('consolidate');
 const indexRouter = require('./routes/index');
 const discoverRouter = require('./routes/discover');
 const chat = require("./routes/chat");
-const message = require('./routes/messages')
+const message = require('./routes/messages');
+const matches = require("./routes/matches");
 
 // const { Server } = require("socket.io");
 // const io = new Server(server);
@@ -82,6 +83,7 @@ app.use('/account', account)
 app.use('/discover', discoverRouter);
 app.use("/chat", chat);
 app.use('/message', message);
+app.use("/matches", matches);
 
 app.get('/', function(req, res, next) {
     res.render('login.ejs', {})
