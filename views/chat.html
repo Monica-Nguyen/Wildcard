@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/chat-style.css" />
+    <title>Chat</title>
+  </head>
+  <body>
+    <div class="chat-page">
+      <div class="grid">
+        <div class="nav">
+          <button class="dropbtn">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+            <a href="/discover">Discover</a>
+            <a href="#">Message</a>
+          </div>
+        </div>
+        <div class="messages">
+          <h2>Messages</h2>
+          <span id="matches-logo"></span>
+          <div class="matches"><h3 id="matches-list"></h3><h4 id="job">Software Developer</h4></div>
+        </div>
+        <div class="banner">
+          <span id="banner-logo"></span>
+          <h1 id="employer">Conversation with Oracle</h1>
+          <h2 id="first-banner-text">You matched on the </h2>
+            <h2 class="actual-job-name">Software Developer</h2>
+          <h2> job on 12/12/2022</h2>
+          
+        </div>
+        <div class="chat">
+          <form>
+            <input
+              type="text"
+              placeholder="Type a message.."
+              class="input"
+              autocomplete="off"
+              autofocus
+            />
+            <button>Send</button>
+          </form>
+          <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+          <script>
+            const form = document.querySelector("form");
+            const input = document.querySelector(".input");
+            const messages = document.querySelector(".chat");
+            const username = prompt("Please enter a nickname: ", "");
+            const socket = io("http://localhost:3000");
+            let messageHistory = [];
+            let jobDetails = "";
+            if (username == "Steve") {
+              document.getElementById("employer").innerText = "Conversation with Oracle"
+              document.getElementById("matches-list").innerText = "Oracle"
+              document.getElementById("matches-logo").className = "avatar";
+              document.getElementById("banner-logo").className = "avatar";
+            }
+            else {
+              document.getElementById("employer").innerText = "Conversation with Steve Doe"
+              document.getElementById("matches-list").innerText = "Steve Doe"
+              document.getElementById("matches-logo").className = "steve";
+              document.getElementById("banner-logo").className = "steve";
+            }
+            document.getElementById("first-banner-text").className = "first-banner-text";
+            socket.emit("hello", "hello from client");
+            socket.on("hello", function (msg) {
+              console.log(msg);
+            });
+
+            form.addEventListener(
+              "submit",
+              async function (event) {
+                event.preventDefault();
+
+                addMessage(username + ": " + input.value);
+
+                let response = await fetch('http://localhost:3000/message/create/63965a173714f284189d4088', {
+                  method: "POST",
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    "name": username,
+                    "message_body": input.value
+                  })
+                });
+                let data = await response.json();
+
+                socket.emit("chat_message", {
+                  message: input.value,
+                });
+
+                input.value = "";
+                return false;
+              },
+              false
+            );
+
+            socket.on("chat_message", function (data) {
+              addMessage(data.username + ": " + data.message);
+            });
+
+            async function getMessageHistory() {
+              let response = await fetch('http://localhost:3000/message/all/63965a173714f284189d4088', {
+                method: 'GET',
+                headers: {
+                  accept: 'application/json',
+                },
+              });
+              messageHistory = await response.json();
+              for (let i=0; i < messageHistory.message_history.length; i++){
+                let message = messageHistory.message_history[i]["author"] + ': ' + messageHistory.message_history[i]["message_body"];
+                addMessage(message);
+              }
+            }
+
+            getMessageHistory();
+            getJobDetails();
+
+            async function getJobDetails() {
+              let response = await fetch('http://localhost:3000/api/job/6396cbba8874ebed81173f62', {
+                method: 'GET',
+                headers: {
+                  accept: 'application/json',
+                },
+              });
+              let data = await response.json();
+              jobDetails = data[0];
+            }
+
+            socket.emit("user_join", username);
+
+            function addMessage(message) {
+              const li = document.createElement("li");
+              li.innerHTML = message;
+              messages.appendChild(li);
+              window.scrollTo(0, document.body.scrollHeight);
+            }
+          </script>
+        </div>
+        <div class="useless-space">
+          <span class="avatar"></span>
+        </div>
+        <div class="role">
+          <h2>Oracle</h2>
+          <h2>Software Developer</h2>
+          <div class="description">
+            <ul>
+              <li>Position Level: Junior</li>
+              <li>Remote</li>
+              <li>Agile</li>
+            </ul>
+          </br>
+            A Junior Software Developer is required within Unified Operations for the Oracle Communications Applications Unified Designer product. This Cloud Native product provides a powerful environment that simplifies and accelerates introduction of new, competitive services that operators need to bring to market. Unified Designer empowers operators to produce new services with full support of the service life cycle, including the design, build, test and deploy of services, and includes service documentation generated from the tool as you build, freeing operator personnel to spend more time creating value-added services. The incumbent is a Software Developer who is a full stack developer with cloud development experience, located at Greater Toronto Area or Ottawa, Canada. You would be involved in all aspects of the product development life cycle including product design, implementation, product customer support, internal support for professional services, and product evolution.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

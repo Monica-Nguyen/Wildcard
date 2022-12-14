@@ -32,6 +32,7 @@ const employeeSchema = new mongoose.Schema({
     matches: [
         { type : mongoose.Schema.Types.ObjectId, ref : 'match' }
     ],
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
 })
 
 module.exports = mongoose.model('employee', employeeSchema)

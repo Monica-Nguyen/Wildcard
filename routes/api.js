@@ -1,18 +1,22 @@
 const express = require('express');
+const bcrypt = require('bcrypt')
 const router = express.Router()
 const Employee = require('../model/employee');
 const Employer = require('../model/employer')
 const Job = require('../model/job')
 const Match = require('../model/match')
 const bodyParser = require("body-parser");
-const mongoose = require('mongoose');
+const User = require("../model/user");
 const jsonParser = bodyParser.json();
+const mongoose = require('mongoose');
 
 module.exports = router;
 
 // ********* EMPLOYEE METHODS ***************//
 // POST method to create an employee
 router.post('/employee/create',  jsonParser, async (req, res) => {
+    let user = await User.find({username:req.session.passport.username})
+    user = user[0]
     const data = new Employee({
         name: req.body.name,
         current_position: req.body.current_position,
@@ -20,7 +24,8 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
         desired_position: req.body.desired_position,
         desired_level: req.body.desired_level,
         skills: req.body.skills,
-        preferred_job_details: req.body.preferred_job_details
+        preferred_job_details: req.body.preferred_job_details,
+        user: user
     })
 
     try {
@@ -75,10 +80,12 @@ router.patch('/employee/:id', async (req, res) => {
 // ********* EMPLOYER METHODS ***************//
 // POST method to create Employer
 router.post('/employer/create',  jsonParser, async (req, res) => {
+    let user = await User.find({username:req.session.passport.username})
+    user = user[0]
     const data = new Employer({
-        company_name: req.body.company_name
+        company_name: req.body.company_name,
+        user: user
     })
-
     try {
         const dataToSave = await data.save();
         res.status(200).json(dataToSave)
@@ -180,7 +187,8 @@ router.post('/job/company',  jsonParser, async (req, res) => {
         position_level: req.body.position_level,
         can_coach: req.body.can_coach,
         skills: req.body.skills,
-        job_details: req.body.job_details
+        is_active: req.body.is_active,
+        job_details: req.body.job_details,
     });
     try {
         const dataToSave = await data.save();
@@ -201,21 +209,68 @@ router.post('/job/company',  jsonParser, async (req, res) => {
     }
 })
 
-// GET method to create Job
-router.get('/job/all',  jsonParser, async (req, res) => {
-    try{
-        const data = await Job.find();
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
+//************************USER*****************************//
+
+// create User
+router.post('/user/create', jsonParser,  async (req, res) => {
+    console.log(req.body);
+    User.findOne({"username": req.body.username}, async function (error, user) {
+        console.log(user);
+        if (user){
+            res.status(400).json({message: 'Username exists'})
+        }
+        else if (error) {
+            res.status(400).json({message: error.message})
+        }
+        else {
+            const data = new User({
+                username: req.body.username,
+                password: req.body.password,
+            });
+            try {
+                const dataToSave = await data.save();
+                res.status(200).json(dataToSave)
+            } catch (error) {
+                res.status(400).json({message: error.message})
+            }
+        }
+    });
+
 })
 
-// GET method to get a specific employer
-router.get('/job/:id', async (req, res) => {
+//check if a user with email and pass exists
+router.post('/user/exist', jsonParser,  async (req, res) => {
+    User.findOne({"email": req.body.email}, function(error, exist) {
+
+        console.log("req is :" ,exist)
+        if(exist && !error){
+
+            res.status(200).send({"email_given": req.body.email, "bool" : 1, "message" : "DOES EXIST"})
+
+            if (exist.password == req.body.password){
+
+                console.log("password is correct")
+                // res.redirect('/')
+            }else{
+
+                console.log("password is wrong")
+            }
+
+        }else if (!exist && !error){
+
+            res.status(200).send({"email_given" : req.body.email , "res" : 0 ,  "message" : "DOESNT EXIST"})
+        }else {
+        //IF YOU ARE USING EXPRESS.JS, YOU MUST USE RES.SEND() or RES.END() TO TERMINATE THE CONNECTION
+        res.status(500).send({"ERROR" : "Not Found"});
+        return;
+        }
+    })});
+
+
+
+router.get('/user/all', async (req, res) => {
     try{
-        const data = await Job.find({_id:req.params.id});
+        const data = await User.find();
         res.json(data)
     }
     catch(error){
@@ -226,6 +281,7 @@ router.get('/job/:id', async (req, res) => {
 
 router.post('/discover/yes', jsonParser, async(req, res) => {
     console.log("yes")
+    res.redirect("/discover")
     //make hardcoded matches
     let hardCoded = true;
 
@@ -238,7 +294,7 @@ router.post('/discover/yes', jsonParser, async(req, res) => {
         if(data == undefined || data == null){ //employee clicking yes so randomize employee user
             const employees = await Employee.find();
             const randomEmployeeIndex = Math.floor(Math.random() * employees.length)
-            
+
             employee = employees[randomEmployeeIndex]
             employer = await Employer.findOne({_id : req.body.id});
             console.log(employer)
@@ -250,9 +306,9 @@ router.post('/discover/yes', jsonParser, async(req, res) => {
             employee = data
         }
 
-        //make match object 
+        //make match object
         //save it
-        //update employee/employeer 
+        //update employee/employeer
 
         let newMatch = new Match({
             employee : employee._id,
@@ -268,20 +324,17 @@ router.post('/discover/yes', jsonParser, async(req, res) => {
             const updateEmployer = await Employee.findByIdAndUpdate(employer._id, employer, { new: true })
 
             //res.status(200).json(dataToSave)
-            
+
             res.redirect("/discover")
         }
         catch (error) {
             res.status(400).json({message: error.message})
-        }      
-    } else {
-        console.log("not hardcoded")
+        }
     }
 
 });
-  
+
 router.post('/discover/no', async(req, res) => {
     console.log("no")
-    //if we have time remove element from carasoul should be easy
     res.redirect("/discover")
 });

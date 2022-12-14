@@ -1,0 +1,65 @@
+#profile-body {
+    background-color: #22577A;
+  }
+
+#profile-div { 
+    background-color: #9FD8CB;
+    width: 50%; 
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 25px;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+#name { 
+    color: #22577A;
+    font-size: 30pt;
+    font-weight: bold;
+}
+
+.desc { 
+    color: #22577A;
+    font-size: 17pt;
+    font-weight: 500;
+    
+}
+
+button { 
+    background-color: #57CC99; 
+    border-radius: 10px;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-weight: 500;
+    font-size: 13pt;
+    color: #FFFFFF;
+}
+
+button:hover { 
+    background-color: #D9D9D9;
+    color: #22577A;
+
+}
+
+
+  #job-button { 
+    width : 50%; 
+    margin-left: 25%;
+    margin-right: 25%;
+    
+  }
+
+#top-bar{ 
+    width: 100%; 
+}
+
+.child-div { 
+    float: left;
+    width: 100%; 
+  }

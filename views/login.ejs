@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/loginStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300">
+</head>
+<body>
+    <h1 id="title"> WILDCARD</h1>
+    <div id="greenBox">
+        <div id="loginBox">
+            <h2 id="loginTitle">LOGIN</h2>
+            <form action="/login" method="post" id="signup-form">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" autocomplete="on"> <br><br>
+                <% if(locals.error) {%>
+                <p class="text-danger"><%=error%></p>
+                <%}%>
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" autocomplete="on"><br>
+                <input id="loginButton" class="loginButton" type="submit" value="Submit">
+            </form>
+        </div>
+        <form action="/signup" id="signupDiv">
+            <input id="signupButton" class="loginButton" type="submit" value="Create Account">
+        </form>
+    </div>
+    </body>
+</html>
