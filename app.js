@@ -25,6 +25,8 @@ const message = require('./routes/messages')
 
 // const { Server } = require("socket.io");
 // const io = new Server(server);
+const profilePage= require('./routes/profile');
+
 
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
@@ -83,6 +85,7 @@ app.use('/message', message);
 app.get('/', function(req, res, next) {
     res.render('login.ejs', {})
 });
+app.use('/profile', profilePage)
 
 app.get('/signup', function(req, res, next) {
     res.render('signup.ejs', {})
