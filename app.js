@@ -18,7 +18,14 @@ const user = require('./model/user');
 const request = require('request');
 const $ = require( "jquery" );
 const cons = require('consolidate');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const discoverRouter = require('./routes/discover');
+const chat = require("./routes/chat");
+const message = require('./routes/messages')
 
+// const { Server } = require("socket.io");
+// const io = new Server(server);
 
 //Start connection to database and log status to console
 mongoose.connect(mongoString);
@@ -28,6 +35,8 @@ database.on('error', (error) => {
 database.once('connected', () => {
   console.log('Database Connected');
 })
+
+const matchesCollection = database.collection('matches')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -68,6 +77,10 @@ app.use(
 
 app.use('/api', api)
 app.use('/account', account)
+app.use('/users', usersRouter);
+app.use('/discover', discoverRouter);
+app.use("/chat", chat);
+app.use('/message', message);
 
 app.get('/', function(req, res, next) {
     res.render('login.ejs', {})
