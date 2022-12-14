@@ -8,6 +8,7 @@ const Messages = require('../model/message')
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const jsonParser = bodyParser.json();
+const User = require('../model/user')
 
 module.exports = router;
 
@@ -49,4 +50,15 @@ router.get('/all/:id', async (req, res) => {
     catch(error){
         res.status(500).json({message: error.message})
     }
+})
+
+//method to get all matches for a user
+router.get('/matches_user/all/', async (req, res) => {
+    let user = await User.find({username: req.user.username});
+    user = user[0];
+    let data = await Employee.aggregate([
+            { "$match": { "user": user._id } },
+        ]);
+    data = data[0]
+    res.json(data);
 })

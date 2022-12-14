@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const User = require("../model/user");
 const jsonParser = bodyParser.json();
 const mongoose = require('mongoose');
+const match = require('../model/match');
 
 module.exports = router;
 
@@ -238,36 +239,6 @@ router.post('/user/create', jsonParser,  async (req, res) => {
 
 })
 
-//check if a user with email and pass exists
-router.post('/user/exist', jsonParser,  async (req, res) => {
-    User.findOne({"email": req.body.email}, function(error, exist) {
-
-        console.log("req is :" ,exist)
-        if(exist && !error){
-
-            res.status(200).send({"email_given": req.body.email, "bool" : 1, "message" : "DOES EXIST"})
-
-            if (exist.password == req.body.password){
-
-                console.log("password is correct")
-                // res.redirect('/')
-            }else{
-
-                console.log("password is wrong")
-            }
-
-        }else if (!exist && !error){
-
-            res.status(200).send({"email_given" : req.body.email , "res" : 0 ,  "message" : "DOESNT EXIST"})
-        }else {
-        //IF YOU ARE USING EXPRESS.JS, YOU MUST USE RES.SEND() or RES.END() TO TERMINATE THE CONNECTION
-        res.status(500).send({"ERROR" : "Not Found"});
-        return;
-        }
-    })});
-
-
-
 router.get('/user/all', async (req, res) => {
     try{
         const data = await User.find();
@@ -361,3 +332,15 @@ router.post('/discover/no', async(req, res) => {
     console.log("no")
     res.redirect("/discover")
 });
+
+//get matches for user
+router.get('/match/:id', async (req, res) => {
+
+    try{
+        const data = await User.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})

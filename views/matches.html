@@ -5,16 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/stylesheets/matches-style.css" />
+        <script src="/js/matches.js"></script>
         <title>Matches</title>
     </head>
-    <body>
-        <h1>Matches List</h1>
-        <a href="/chat">        
-            <span class="dot">
-                Oracle
-                <img src="../images/oracle.wine.png"></img>
-            </span>
-        </a>
+    <body onload="getMatchByUser()">
+    <div id="matches-list">
+    </div>
     </body>
 
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
