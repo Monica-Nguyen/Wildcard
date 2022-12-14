@@ -5,6 +5,8 @@ const api = require('../routes/api.js');
 const axios = require('axios');
 const matches = require('../model/match.js')(mongoose);
 const connectEnsureLogin = require("connect-ensure-login");
+const Employee = require('../model/employee');
+const Employer = require('../model/employer')
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -13,12 +15,18 @@ router.get('/', async function(req, res, next) {
 
   //check if employeer or employee
   //then render appr frontend
-  const isEmployee = true;
-
-  if(isEmployee)
-    res.render('discoverEmployee')
-  else
-    res.render('discoverEmployer')
+  if(req.user == null){
+    res.redirect("/")
+  } else {
+    let db_query = await Employee.findOne({"user": req.user._id});
+  
+    if(db_query == null){
+        // isEmployer
+        res.render('discoverEmployer')
+    } else {
+      res.render('discoverEmployee')
+    }
+  }
 });
 
 

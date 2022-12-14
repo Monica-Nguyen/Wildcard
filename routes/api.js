@@ -385,10 +385,54 @@ router.post('/discover/yes', jsonParser, async(req, res) => {
             res.status(400).json({message: error.message})
         }
     } else {
-        console.log(req._passport.instance)
+        // console.log(req._passport.instance)
         // let user = await User.find({username:req.session.passport.username})
         // console.log(user)
-        res.redirect("/discover") 
+
+        if(req.user != undefined){
+            console.log(req.user)
+            let employee = await Employee.findOne({"user": req.user._id});
+            let employer = await Employer.findOne({_id : req.body.id});
+
+            console.log(employee)
+
+            if(employee == null){
+                console.log("isEmployer")
+
+                employer = await Employer.findOne({"user": req.user._id});
+                employee = await Employee.findOne({_id : req.body.id});
+            }
+            
+            //make match object
+            //save it
+            //update employee/employeer
+
+            console.log("employee: "+ employee)
+            console.log("employer: " + employer)
+
+            let newMatch = new Match({
+                employee : employee._id,
+                employer : employer._id
+            })
+
+            try {
+                employee.matches.push(newMatch._id)
+                employer.matches.push(newMatch._id)
+
+                const dataToSave = await newMatch.save();
+                const updateEmployee = await Employee.findByIdAndUpdate(employee._id, employee, { new: true })
+                const updateEmployer = await Employee.findByIdAndUpdate(employer._id, employer, { new: true })
+
+                // res.status(200).json(dataToSave)
+
+                res.redirect("/discover")
+            }
+            catch (error) {
+                res.status(400).json({message: error.message})
+            }
+        } else {
+            res.redirect("/")
+        }
     }
 
 });
