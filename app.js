@@ -26,6 +26,7 @@ const message = require('./routes/messages')
 // const { Server } = require("socket.io");
 // const io = new Server(server);
 const profilePage= require('./routes/profile');
+const {errors} = require("passport-local-mongoose");
 
 
 //Start connection to database and log status to console
@@ -87,6 +88,10 @@ app.get('/', function(req, res, next) {
 });
 app.use('/profile', profilePage)
 
+app.get('/login', function(req, res, next) {
+    res.redirect('/')
+});
+
 app.get('/signup', function(req, res, next) {
     res.render('signup.ejs', {})
 });
@@ -121,7 +126,7 @@ app.post("/register", async (req, res) => {
     user.register(new user({username: req.body.username, password: req.body.password}), req.body.password, (err, user) => {
         if(err) {
             console.log(err);
-            res.send('There was an error');
+            res.render('signup.ejs', {error: err.message});
         } else {
             passport.authenticate('local')(req, res, () => {
                 res.redirect('/secret');

@@ -15,8 +15,8 @@ module.exports = router;
 // ********* EMPLOYEE METHODS ***************//
 // POST method to create an employee
 router.post('/employee/create',  jsonParser, async (req, res) => {
-    let user = await User.find({username:req.session.passport.username})
-    user = user[0]
+    let user = await User.find({username:req.session.passport.user});
+    user = user[0];
     const data = new Employee({
         name: req.body.name,
         current_position: req.body.current_position,
@@ -80,7 +80,7 @@ router.patch('/employee/:id', async (req, res) => {
 // ********* EMPLOYER METHODS ***************//
 // POST method to create Employer
 router.post('/employer/create',  jsonParser, async (req, res) => {
-    let user = await User.find({username:req.session.passport.username})
+    let user = await User.find({username:req.session.passport.user})
     user = user[0]
     const data = new Employer({
         company_name: req.body.company_name,
@@ -277,6 +277,29 @@ router.get('/user/all', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
+
+router.get('/user/:id', async (req, res) => {
+    try{
+        let data = await User.find({_id: req.params.id});
+        data = data[0];
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+// router.get('/user/:username', async (req, res) => {
+//     try{
+//         let data = await User.find({username: req.params.username});
+//         data = data[0];
+//         res.json(data)
+//     }
+//     catch(error){
+//         res.status(500).json({message: error.message})
+//     }
+// })
+
 
 
 router.post('/discover/yes', jsonParser, async(req, res) => {
