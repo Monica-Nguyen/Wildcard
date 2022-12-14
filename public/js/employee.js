@@ -205,6 +205,7 @@ async function createPerson() {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({
                 "name": personName,
                 "current_position": currentPosition,
@@ -238,6 +239,7 @@ async function updatePerson() {
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({
                 "name": personName,
                 "current_position": currentPosition,
