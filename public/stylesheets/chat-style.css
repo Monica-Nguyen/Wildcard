@@ -226,8 +226,14 @@
     padding: 14px 16px;
     background-color: inherit;
     font-family: inherit;
-    margin-top: -150vw;
+    margin-top: -5.5vw;
+    margin-left: 5vw;
+    float: right;
+  }
+
+  .three-dots .dropdown-content{
     margin-left: 20vw;
+    margin-top: -4.3vw;
   }
   
   .dropdown-content {
@@ -237,7 +243,6 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    margin-left: 20vw;
   }
   
   .dropdown-content a {
