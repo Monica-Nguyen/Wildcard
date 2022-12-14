@@ -50,66 +50,80 @@
           </form>
           <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
           <script>
+            let matchInfo = {}
+            let matchID = /[^/]*$/.exec(window.location.href)[0];
             const form = document.querySelector("form");
             const input = document.querySelector(".input");
             const messages = document.querySelector(".chat");
-            const username = prompt("Please enter a nickname: ", "");
+            let username = "";
             const socket = io("http://localhost:3000");
             let messageHistory = [];
             let jobDetails = "";
-            if (username == "Steve") {
-              document.getElementById("employer").innerText = "Conversation with Oracle"
-              document.getElementById("matches-list").innerText = "Oracle"
-              document.getElementById("matches-logo").className = "avatar";
-              document.getElementById("banner-logo").className = "avatar";
-            }
-            else {
-              document.getElementById("employer").innerText = "Conversation with Steve Doe"
-              document.getElementById("matches-list").innerText = "Steve Doe"
-              document.getElementById("matches-logo").className = "steve";
-              document.getElementById("banner-logo").className = "steve";
-            }
             document.getElementById("first-banner-text").className = "first-banner-text";
             socket.emit("hello", "hello from client");
             socket.on("hello", function (msg) {
               console.log(msg);
             });
+            getMatchInfo().then(response => assignMatchInfo(response));
+            getMessageHistory();
 
+            function assignMatchInfo(info) {
+              matchInfo = info;
+              console.log(matchInfo);
+              username = matchInfo.current_user;
+              updateMatchDetails();
+            }
+
+            socket.emit("user_join", username);
+            socket.on("chat_message", function (data) {
+              addMessage(matchInfo.current_user + ": " + data.message);
+            });
             form.addEventListener(
-              "submit",
-              async function (event) {
-                event.preventDefault();
+                    "submit",
+                    async function (event) {
+                      event.preventDefault();
+                      addMessage(username + ": " + input.value);
+                      addMessageHistory(username, input.value);
 
-                addMessage(username + ": " + input.value);
+                      socket.emit("chat_message", {
+                        message: input.value,
+                      });
 
-                let response = await fetch('http://localhost:3000/message/create/63965a173714f284189d4088', {
-                  method: "POST",
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    "name": username,
-                    "message_body": input.value
-                  })
-                });
-                let data = await response.json();
-
-                socket.emit("chat_message", {
-                  message: input.value,
-                });
-
-                input.value = "";
-                return false;
-              },
-              false
+                      input.value = "";
+                      return false;
+                    },
+                    false
             );
 
-            socket.on("chat_message", function (data) {
-              addMessage(data.username + ": " + data.message);
-            });
+            function updateMatchDetails(){
+              if (matchInfo["current_role"] == "Employee") {
+                document.getElementById("employer").innerText = "Conversation with " + matchInfo["employer"];
+                document.getElementById("matches-list").innerText = matchInfo["employer"];
+                document.getElementById("matches-logo").className = "avatar";
+                document.getElementById("banner-logo").className = "avatar";
+              }
+              else {
+                document.getElementById("employer").innerText = "Conversation with " + matchInfo["employee"];
+                document.getElementById("matches-list").innerText = matchInfo.employee;
+                document.getElementById("matches-logo").className = "steve";
+                document.getElementById("banner-logo").className = "steve";
+              }
+            }
+
+            async function getMatchInfo() {
+              let matchURL = 'http://localhost:3000/message/match-info/' + matchID;
+              let response = await fetch(matchURL, {
+                method: 'GET',
+                headers: {
+                  accept: 'application/json',
+                },
+              });
+              let data = await response.json();
+              return data;
+            }
 
             async function getMessageHistory() {
-              let response = await fetch('http://localhost:3000/message/all/63965a173714f284189d4088', {
+              let response = await fetch('http://localhost:3000/message/all/' + matchID, {
                 method: 'GET',
                 headers: {
                   accept: 'application/json',
@@ -122,21 +136,21 @@
               }
             }
 
-            getMessageHistory();
-            getJobDetails();
-
-            async function getJobDetails() {
-              let response = await fetch('http://localhost:3000/api/job/6396cbba8874ebed81173f62', {
-                method: 'GET',
+            async  function addMessageHistory(username, inputValue) {
+              let messageURL = 'http://localhost:3000/message/create/' + matchID;
+              let response = await fetch(messageURL, {
+                method: "POST",
                 headers: {
-                  accept: 'application/json',
+                  'Content-Type': 'application/json'
                 },
+                body: JSON.stringify({
+                  "name": username,
+                  "message_body": inputValue
+                })
               });
               let data = await response.json();
-              jobDetails = data[0];
+              return data
             }
-
-            socket.emit("user_join", username);
 
             function addMessage(message) {
               const li = document.createElement("li");
@@ -144,6 +158,7 @@
               messages.appendChild(li);
               window.scrollTo(0, document.body.scrollHeight);
             }
+
           </script>
         </div>
         <div class="useless-space">

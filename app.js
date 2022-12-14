@@ -21,11 +21,13 @@ const cons = require('consolidate');
 const indexRouter = require('./routes/index');
 const discoverRouter = require('./routes/discover');
 const chat = require("./routes/chat");
-const message = require('./routes/messages')
+const message = require('./routes/messages');
+const matches = require("./routes/matches");
 
 // const { Server } = require("socket.io");
 // const io = new Server(server);
 const profilePage= require('./routes/profile');
+const {errors} = require("passport-local-mongoose");
 
 
 //Start connection to database and log status to console
@@ -81,11 +83,16 @@ app.use('/account', account)
 app.use('/discover', discoverRouter);
 app.use("/chat", chat);
 app.use('/message', message);
+app.use("/matches", matches);
 
 app.get('/', function(req, res, next) {
     res.render('login.ejs', {})
 });
 app.use('/profile', profilePage)
+
+app.get('/login', function(req, res, next) {
+    res.redirect('/')
+});
 
 app.get('/signup', function(req, res, next) {
     res.render('signup.ejs', {})
@@ -121,7 +128,7 @@ app.post("/register", async (req, res) => {
     user.register(new user({username: req.body.username, password: req.body.password}), req.body.password, (err, user) => {
         if(err) {
             console.log(err);
-            res.send('There was an error');
+            res.render('signup.ejs', {error: err.message});
         } else {
             passport.authenticate('local')(req, res, () => {
                 res.redirect('/secret');

@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/:id", function (req, res, next) {
-  res.render("chat", {});
+router.get("/", function (req, res, next) {
+  res.render("matches", {});
 });
 
 module.exports = router;

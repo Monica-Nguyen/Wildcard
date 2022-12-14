@@ -10,14 +10,15 @@ const User = require("../model/user");
 const jsonParser = bodyParser.json();
 const mongoose = require('mongoose');
 const connectEnsureLogin = require("connect-ensure-login");
+const match = require('../model/match');
 
 module.exports = router;
 
 // ********* EMPLOYEE METHODS ***************//
 // POST method to create an employee
 router.post('/employee/create',  jsonParser, async (req, res) => {
-    let user = await User.find({username:req.session.passport.username})
-    user = user[0]
+    let user = await User.find({username:req.session.passport.user});
+    user = user[0];
     const data = new Employee({
         name: req.body.name,
         current_position: req.body.current_position,
@@ -81,7 +82,7 @@ router.patch('/employee/:id', async (req, res) => {
 // ********* EMPLOYER METHODS ***************//
 // POST method to create Employer
 router.post('/employer/create',  jsonParser, async (req, res) => {
-    let user = await User.find({username:req.session.passport.username})
+    let user = await User.find({username:req.session.passport.user})
     user = user[0]
     const data = new Employer({
         company_name: req.body.company_name,
@@ -267,6 +268,36 @@ router.post('/user/exist', jsonParser,  async (req, res) => {
         }
     })});
 
+
+
+//check if a user with email and pass exists
+router.post('/user/exist', jsonParser,  async (req, res) => {
+    User.findOne({"email": req.body.email}, function(error, exist) {
+
+        console.log("req is :" ,exist)
+        if(exist && !error){
+
+            res.status(200).send({"email_given": req.body.email, "bool" : 1, "message" : "DOES EXIST"})
+
+            if (exist.password == req.body.password){
+
+                console.log("password is correct")
+                // res.redirect('/')
+            }else{
+
+                console.log("password is wrong")
+            }
+
+        }else if (!exist && !error){
+
+            res.status(200).send({"email_given" : req.body.email , "res" : 0 ,  "message" : "DOESNT EXIST"})
+        }else {
+        //IF YOU ARE USING EXPRESS.JS, YOU MUST USE RES.SEND() or RES.END() TO TERMINATE THE CONNECTION
+        res.status(500).send({"ERROR" : "Not Found"});
+        return;
+        }
+    })});
+
 router.get('/user/all', async (req, res) => {
     try{
         const data = await User.find();
@@ -276,6 +307,29 @@ router.get('/user/all', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
+
+router.get('/user/:id', async (req, res) => {
+    try{
+        let data = await User.find({_id: req.params.id});
+        data = data[0];
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+// router.get('/user/:username', async (req, res) => {
+//     try{
+//         let data = await User.find({username: req.params.username});
+//         data = data[0];
+//         res.json(data)
+//     }
+//     catch(error){
+//         res.status(500).json({message: error.message})
+//     }
+// })
+
 
 
 router.post('/discover/yes', jsonParser, async(req, res) => {
@@ -343,3 +397,15 @@ router.post('/discover/no', async(req, res) => {
     console.log("no")
     res.redirect("/discover")
 });
+
+//get matches for user
+router.get('/match/:id', async (req, res) => {
+
+    try{
+        const data = await User.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
