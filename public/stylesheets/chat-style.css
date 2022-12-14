@@ -1,272 +1,324 @@
 /* sorry yall i made a new style sheet because padding in the body wasnt applicable to the chat page lol */
 
+  
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: "Roboto", sans-serif;
-}
-
-.grid {
-  display: grid;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  grid-template-columns: 60% 20%;
-  grid-template-rows: 88%;
-}
-
-.nav {
-  grid-column-start: 0;
-  grid-column-end: 1;
-  grid-row-start: 0;
-  grid-row-end: 1;
-  background-color: #22577a;
-  padding-top: 30px;
-  padding-left: 30px;
-}
-
-.messages {
-  grid-column-start: 0;
-  grid-column-end: 1;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  background-color: #38a3a5;
-}
-
-.messages h2 {
-  padding: 20px;
-  color: white;
-  font-size: 24;
-  margin-left: 20px;
-}
-
-.matches {
-  padding: 20px;
-  cursor: pointer;
-}
-
-#matches-list {
-  margin-left: 75px;
-}
-
-#job {
-  margin-left: 75px;
-}
-
-.messages .steve {
-  float: left;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.messages .avatar {
-  float: left;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.banner {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 0;
-  grid-row-end: 1;
-  background-color: #38a3a5;
-  padding-left: 10px;
-  color: white;
-  padding-top: 10px;
-}
-
-.banner .avatar {
-  margin-left: 10px;
-  float: left;
-}
-
-.banner .steve {
-  margin-left: 10px;
-  float: left;
-}
-
-.actual-job-name {
-  color: #80ed99;
-}
-
-.banner h1 {
-  font-size: 36;
-  margin-left: 85px;
-}
-
-.banner h2 {
-  display: inline;
-}
-
-.first-banner-text {
-  margin-left: 10px;
-}
-
-.chat {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  background-color: #22577a;
-}
-
-form {
-  position: fixed;
-  bottom: 0;
-  width: 60%;
-  display: flex;
-  box-sizing: border-box;
-  padding: 0.25rem;
-  background-color: #22577a;
-}
-
-form input {
-  border: 0;
-  padding: 0.5rem;
-  width: 100%;
-  outline: 0;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: larger;
-  font-style: bold;
-  border-radius: 0.5rem;
-  background: rgb(255, 255, 255);
-}
-
-form button {
-  width: 6rem;
-  background-color: #57cc99;
-  color: white;
-  border: none;
-  padding: 0.5rem;
-  height: 50px;
-  font-size: larger;
-  font-style: bold;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  text-transform: uppercase;
-}
-
-form button:hover {
-  background-color: #9bebc8;
-}
-
-.chat li {
-  padding: 0.5rem;
-  margin: 20px;
-  width: 350px;
-  background-color: #57cc99;
-  border-radius: 50px;
-  margin-left: 50px;
-  list-style: none;
-  padding-left: 15px;
-}
-
-
-
-.chat li:nth-child(odd) {
-  padding: 0.5rem;
-  margin-left: 650px;
-  width: 350px;
-  background-color: #fff;
-  border-radius: 50px;
-  margin-right: 0px;
-  list-style: none;
-  padding-left: 15px;
-} 
-
-.useless-space {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 0;
-  grid-row-end: 1;
-  background-color: #57cc99;
-}
-
-.role {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  background-color: #57cc99;
-  display: inline;
-  text-align: center;
-}
-
-.description {
-  padding: 20px;
-}
-
-.description li {
-  list-style: none;
-}
-
-.nav .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #38a3a5;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.nav:hover .dropdown-content {
-  display: block;
-}
-
-.line {
-  width: 45px;
-  height: 6px;
-  background-color: white;
-  margin: 8px 0;
-}
-
-.avatar {
-  content: url(../images/oracle.wine.png);
-  height: 65px;
-  width: 65px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top: 10px;
-  margin-left:140px;
-  background-color: #bbb;
-} 
-
-.steve {
-  content: url(../images/Steve.png);
-  height: 65px;
-  width: 65px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top: 10px;
-  margin-left:140px;
-  background-color: #bbb;
-}
+  }
+  
+  .grid {
+    display: grid;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 60% 20%;
+    grid-template-rows: 88%;
+  }
+  
+  .nav {
+    grid-column-start: 0;
+    grid-column-end: 1;
+    grid-row-start: 0;
+    grid-row-end: 1;
+    background-color: #22577a;
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+  
+  .messages {
+    grid-column-start: 0;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: #38a3a5;
+  }
+  
+  .messages h2 {
+    padding: 20px;
+    color: white;
+    font-size: 24;
+    margin-left: 20px;
+  }
+  
+  .matches {
+    padding: 20px;
+    cursor: pointer;
+  }
+  
+  #matches-list {
+    margin-left: 75px;
+  }
+  
+  #job {
+    margin-left: 75px;
+  }
+  
+  .messages .steve {
+    float: left;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .messages .avatar {
+    float: left;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .banner {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 0;
+    grid-row-end: 1;
+    background-color: #38a3a5;
+    padding-left: 10px;
+    color: white;
+    padding-top: 10px;
+  }
+  
+  .banner .avatar {
+    margin-left: 10px;
+    float: left;
+  }
+  
+  .banner .steve {
+    margin-left: 10px;
+    float: left;
+  }
+  
+  .actual-job-name {
+    color: #80ed99;
+  }
+  
+  .banner h1 {
+    font-size: 36;
+    margin-left: 85px;
+  }
+  
+  .banner h2 {
+    display: inline;
+  }
+  
+  .first-banner-text {
+    margin-left: 10px;
+  }
+  
+  .chat {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: #22577a;
+  }
+  
+  form {
+    position: fixed;
+    bottom: 0;
+    width: 60%;
+    display: flex;
+    box-sizing: border-box;
+    padding: 0.25rem;
+    background-color: #22577a;
+  }
+  
+  @media screen {
+    form input {
+      border: 0;
+      padding: 0.5rem;
+      width: 100%;
+      outline: 0;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: larger;
+      font-style: bold;
+      border-radius: 0.5rem;
+      background: rgb(255, 255, 255);
+    }
+    
+  }
+  
+  form button {
+    width: 6rem;
+    background-color: #57cc99;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    height: 50px;
+    font-size: larger;
+    font-style: bold;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+  }
+  
+  form button:hover {
+    background-color: #9bebc8;
+  }
+  
+  .chat li {
+    padding: 0.5rem;
+    margin: 20px;
+    width: 350px;
+    background-color: #57cc99;
+    border-radius: 50px;
+    margin-left: 50px;
+    list-style: none;
+    padding-left: 15px;
+  }
+  
+  .chat li:nth-child(odd) {
+    padding: 0.5rem;
+    margin-left: 650px;
+    width: 350px;
+    background-color: #fff;
+    border-radius: 50px;
+    margin-right: 0px;
+    list-style: none;
+    padding-left: 15px;
+  } 
+  
+  .useless-space {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 0;
+    grid-row-end: 1;
+    background-color: #57cc99;
+  }
+  
+  .role {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    background-color: #57cc99;
+    display: inline;
+    text-align: center;
+  }
+  
+  .description {
+    padding: 20px;
+  }
+  
+  .description li {
+    list-style: none;
+  }
+  
+  .nav .dropbtn {
+    font-size: 16;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+  
+  .three-dots .dropbtn {
+    font-size: 16;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin-top: -150vw;
+    margin-left: 20vw;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #38a3a5;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left: 20vw;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .nav:hover .dropdown-content {
+    display: block;
+  }
+  .three-dots:hover .dropdown-content {
+    display: block;
+  }
+  
+  .line {
+    width: 45px;
+    height: 6px;
+    background-color: white;
+    margin: 8px 0;
+  }
+  
+  .dot {
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    margin: 8px 0;
+  }
+  
+  .avatar {
+    content: url(../images/oracle.wine.png);
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left:140px;
+    background-color: #bbb;
+  } 
+  
+  .steve {
+    content: url(../images/Steve.png);
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left:140px;
+    background-color: #bbb;
+  }
+  
+  .remove_option {
+    margin-top: -7vw;
+    margin-left: 20vw;
+  }
+  
+  .dropdown-content_remove {
+    display: none;
+    margin-top: 60px;
+    margin-left: -65vw;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content_remove a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .remove_option a:hover {background-color: #f1f1f1}
+  
+  .show {display:block;}

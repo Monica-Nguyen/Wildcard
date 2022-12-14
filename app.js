@@ -19,7 +19,7 @@ const request = require('request');
 const $ = require( "jquery" );
 const cons = require('consolidate');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+// const usersRouter = require('./routes/users');
 const discoverRouter = require('./routes/discover');
 const chat = require("./routes/chat");
 const message = require('./routes/messages')
@@ -77,7 +77,7 @@ app.use(
 
 app.use('/api', api)
 app.use('/account', account)
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 app.use('/discover', discoverRouter);
 app.use("/chat", chat);
 app.use('/message', message);

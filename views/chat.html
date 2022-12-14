@@ -21,21 +21,30 @@
             <a href="#">Profile</a>
             <a href="#">Logout</a>
             <a href="/discover">Discover</a>
-            <a href="#">Message</a>
+            <a href="/chat">Message</a>
           </div>
         </div>
         <div class="messages">
           <h2>Messages</h2>
           <span id="matches-logo"></span>
           <div class="matches"><h3 id="matches-list"></h3><h4 id="job">Software Developer</h4></div>
+          <div class="three-dots">
+            <button class="dropbtn">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Remove match</a>
+            </div>
+          </div>
         </div>
         <div class="banner">
           <span id="banner-logo"></span>
           <h1 id="employer">Conversation with Oracle</h1>
           <h2 id="first-banner-text">You matched on the </h2>
             <h2 class="actual-job-name">Software Developer</h2>
-          <h2> job on 12/12/2022</h2>
-          
+          <h2> job on 13/12/22</h2> 
         </div>
         <div class="chat">
           <form>
@@ -104,6 +113,10 @@
               false
             );
 
+            if(event == SubmitEvent){
+
+            }
+
             socket.on("chat_message", function (data) {
               addMessage(data.username + ": " + data.message);
             });
@@ -144,6 +157,10 @@
               messages.appendChild(li);
               window.scrollTo(0, document.body.scrollHeight);
             }
+
+            function showDropdown() {
+              document.getElementById("myDropdown").classList.toggle("show");
+            }
           </script>
         </div>
         <div class="useless-space">
@@ -159,7 +176,7 @@
               <li>Agile</li>
             </ul>
           </br>
-            A Junior Software Developer is required within Unified Operations for the Oracle Communications Applications Unified Designer product. This Cloud Native product provides a powerful environment that simplifies and accelerates introduction of new, competitive services that operators need to bring to market. Unified Designer empowers operators to produce new services with full support of the service life cycle, including the design, build, test and deploy of services, and includes service documentation generated from the tool as you build, freeing operator personnel to spend more time creating value-added services. The incumbent is a Software Developer who is a full stack developer with cloud development experience, located at Greater Toronto Area or Ottawa, Canada. You would be involved in all aspects of the product development life cycle including product design, implementation, product customer support, internal support for professional services, and product evolution.
+            A Junior Software Developer is required within Unified Operations for the Oracle Communications Applications Unified Designer product. This Cloud Native product provides a powerful environment that simplifies and accelerates introduction of new, competitive services that operators need to bring to market. Unified Designer empowers operators to produce new services with full support of the service life cycle, including the design, build, test and deploy of services, and includes service documentation generated from the tool as you build, freeing operator personnel to spend more time creating value-added services. The incumbent is a Software Developer who is a full stack developer with cloud development experience, located at Greater Toronto Area or Ottawa, Canada. 
           </div>
         </div>
       </div>
