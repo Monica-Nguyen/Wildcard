@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const api = require('../routes/api.js');
 const axios = require('axios');
 const matches = require('../model/match.js')(mongoose);
+const connectEnsureLogin = require("connect-ensure-login");
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
