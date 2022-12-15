@@ -21,7 +21,7 @@ async function getMatchByUser() {
             let chatURL = "/chat/" + matchArray[i];
             matchList +=
                 `
-                <a class="match_link" href=${chatURL}><span class="dot"><p style="margin-top: 80px">${matchNames.employee} and ${matchNames.employer}</p></span></a>
+                <a class="match_link" href=${chatURL}><span class="dot"><p style="margin-top: 30px">${matchNames.employee} and ${matchNames.employer}</p></span></a>
             
             `
         }
