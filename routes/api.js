@@ -40,6 +40,17 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
 })
 
 // GET method to get all Employees
+router.get('/employee/', async (req, res) => {
+    try{
+        let employee = await Employee.findOne({"user": req.user._id});
+        res.json(employee)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+// GET method to get all Employees
 router.get('/employee/all', async (req, res) => {
     try{
         const data = await Employee.find();
