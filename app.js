@@ -90,19 +90,14 @@ app.use("/matches", matches);
 
 app.get('/', async function (req, res, next) {
     if (req.isAuthenticated()) {
-        let user = await User.find({username: req.user.username});
-        user = user[0];
-        console.log(user._id);
-        let employee_result = await Employee.aggregate([
-            {"$match": {"user": user._id}},
-        ]);
-        let employer_result = await Employer.aggregate([
-            {"$match": {"user": user._id}},
-        ]);
-        if (employee_result.length > 0) {
-            res.redirect('/profile/employee')
+        let employee = await Employee.findOne({"user": req.user._id});
+        let employer = await Employer.findOne({"user": req.user._id});
+        if (employee != null) {
+            if (employee.length !== 0){
+                res.redirect('/profile/employee')
+            }
         }
-        else if (employer_result.length > 0) {
+        else if (employer.length !== 0) {
             res.redirect('/profile/employer')
         }
         else {
