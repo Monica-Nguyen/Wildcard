@@ -18,10 +18,11 @@ async function getEmployer() {
         credentials: "include"
     });
     let data = await response.json();
-    console.log(data);
+    console.log(data)
     const obj = data;
     company_name = obj.company_name;
     jobId = obj.jobs;
+    console.log(obj.jobId);
     displayAllJobs();
 
 }
@@ -61,13 +62,13 @@ function display(i) {
     var jobInfo = document.createElement("div")
     //create buttons
     // var buttonDivs = document.createElement("div")
-    var jobButton = document.createElement("button");
+    // var jobButton = document.createElement("button");
 
-    jobButton.textContent = position_title
-    jobButton.id = "job-button"
-    jobButton.addEventListener("click", opentext);
+    // jobButton.textContent = position_title
+    // jobButton.id = "job-button"
+    // jobButton.addEventListener("click", opentext);
    
-    jobInfo.appendChild(jobButton) 
+    // jobInfo.appendChild(jobButton) 
 
     var jobDiv = document.createElement("div")
     jobDiv.id = 'profile-div'
@@ -149,7 +150,24 @@ function display(i) {
     jobDiv.appendChild(detailDiv)
 
 
-    jobDiv.innerHTML += "<br/> <br/>"
+    jobDiv.innerHTML += "<br/>"
+
+    // jobDiv.innerHTML += "hi"
+
+    var matchingButton = document.createElement("a"); 
+    matchingButton.setAttribute('href', '/discover');      
+    matchingButton.textContent = 'Start Matching';   
+    // matchingButton.innerHTML += "<br/> <br/> <br/> <br/>" 
+    matchingButton.classList.add("button-link");
+
+    jobDiv.appendChild(matchingButton)
+    jobDiv.innerHTML += "<br/> <br/> <br/>"
+
+    var editButton = document.createElement("a"); 
+    editButton.setAttribute('href', '/account/employer-form');      
+    editButton.textContent = 'Edit Profile';      
+    editButton.classList.add("button-link");
+    jobDiv.appendChild(editButton)
 
 
 
