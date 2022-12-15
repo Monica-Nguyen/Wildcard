@@ -10,7 +10,7 @@ var jobId;
 
 
 async function getEmployer() {
-    let response = await fetch ('http://localhost:3000/message/employer/current/' , {
+    let response = await fetch ('http://localhost:3000/message/employer/current' , {
         method: "GET",
         headers: {
             'Access-Control-Allow-Origin': '*',
@@ -19,7 +19,7 @@ async function getEmployer() {
         credentials: "include"
     });
     let data = await response.json();
-    console.log(data);
+    console.log("here " + data);
     const obj = data
     company_name = obj.company_name;
     jobId = obj.jobs;

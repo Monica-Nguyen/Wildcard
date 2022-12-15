@@ -1,7 +1,7 @@
 
 
 body{
-  background-color:#22577A ;
+  background-image: url('../images/geometric.jpg');
   font-family: Roboto, 'sans-serif';
 }
 
@@ -28,7 +28,8 @@ body{
   box-sizing: border-box;
   /* margin-top: 10%;
   margin-bottom: 23%; */
-  background-color:#38A3A5 ;
+  background-color:#eaf4f4 ;
+  border:1px solid #22577A;
   display: grid;
   grid-template-columns: 1fr 1fr;
   
@@ -60,8 +61,9 @@ input[type=text] {
   box-sizing: border-box;
   /* margin-top: 10%;
   margin-bottom: 23%; */
-  background-color:#376768 ;
-  color: white;
+  background-color: #a5dac6;
+  border:1px solid #22577A;
+  color: #22577A;
   
 }
 
@@ -109,7 +111,7 @@ label {
 }
 
 #signupButton{
-  color:white;
+  color:#22577A;;
   border:none;
   width: 30%; 
   margin-top: 30px;
@@ -122,7 +124,7 @@ label {
   padding-bottom: 25px;
   border-radius: 15px;
 /*  */
-  background-color: #376768;
+  background-color: #a5dac6;
 }
 
 #signupButton:hover{
