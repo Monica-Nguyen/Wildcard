@@ -33,9 +33,9 @@ async function checkJobDetails() {
             document.getElementById("create-save-button").style.display = "none";
             let jobSpace = document.getElementById("current-jobs");
             //Check if returned company exists
-            company = companyData[0]["company_name"];
-            companyID = companyData[0]["_id"];
-            let jobs = companyData[0]["jobs"];
+            company = companyData["company_name"];
+            companyID = companyData["_id"];
+            let jobs = companyData["jobs"];
             totalJobs = jobs;
             await getJobTitles();
             addJobCreateOptions();
@@ -80,7 +80,7 @@ function addJobCreateOptions() {
         </div>
         <div id="current-jobs"></div>
         <div class="mb-3">
-            <button class="btn" onclick="addNewJobs(true)"><span class="material-symbols-outlined">add_circle</span></button> Add Job </div>
+            <button class="btn" onclick="addNewJobs(true, null, null)"><span class="material-symbols-outlined">add_circle</span></button> Add Job </div>
         `
     companyOption.innerHTML += newOptions;
     document.getElementById("company-name-input").placeholder = company;
@@ -196,19 +196,26 @@ async function addNewJobs(is_new, skills=null, details=null) {
     let tomSkills = new TomSelect("#select-tags-skills", opts);
     let tomDetails = new TomSelect("#select-tags-details", opts);
 
-    if (skills.length > 0 ) {
-        for (let i=0; i <skills.length; i++){
-            tomSkills.addItem(skills[i]);
+    if (skills != null){
+        if (skills.length > 0 ) {
+            for (let i=0; i <skills.length; i++){
+                tomSkills.addOption(skills[i]);
+                tomSkills.addItem(skills[i]);
+            }
         }
     }
     console.log(details);
 
-    if (details.length > 0 ) {
-        for (let i=0; i <details.length; i++){
-            tomDetails.addItem(details[i]);
+    if (details != null){
+        if (details.length > 0 ) {
+            for (let i=0; i <details.length; i++){
+                tomDetails.addOption(details[i]);
+                tomDetails.addItem(details[i]);
+            }
         }
     }
-
+    tomSkills.close();
+    tomDetails.close();
 }
 
 function getJobCreateSaveButton(){

@@ -39,7 +39,7 @@ router.post('/employee/create',  jsonParser, async (req, res) => {
     }
 })
 
-// GET method to get all Employees
+// GET method to get logged in Employees
 router.get('/employee/', async (req, res) => {
     try{
         let employee = await Employee.findOne({"user": req.user._id});
@@ -105,6 +105,18 @@ router.post('/employer/create',  jsonParser, async (req, res) => {
     }
     catch (error) {
         res.status(400).json({message: error.message})
+    }
+})
+
+
+// GET method to get logged in Employer
+router.get('/employer/', async (req, res) => {
+    try{
+        let employee = await Employer.findOne({"user": req.user._id});
+        res.json(employee)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
     }
 })
 
