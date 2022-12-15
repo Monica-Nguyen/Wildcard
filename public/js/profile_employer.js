@@ -1,10 +1,3 @@
-// var coll = document.getElementsByClassName("collapsible");
-// var i;
-
-// console.log(coll.length)
-// for (i = 0; i < coll.length; i++) {
-//     console.log("hi")
-//  } 
 
 var company_name; 
 var position_title;
@@ -15,36 +8,21 @@ var job_details;
 
 var jobId; 
 
-// const lineBreak = document.createElement('br');
-
 
 async function getEmployer() {
-    await fetch ('http://localhost:3000/api/employer/63916a47b4dca73b9a7e913b' , {
+    let response = await fetch ('http://localhost:3000/message/employer/current/' , {
         method: "GET",
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': "application/json",
-        }
-    })
-    .then(function(response) {
-        return response.text();
-    }).then(function(data) { 
-        console.log(data)
-        const obj = JSON.parse(data)
-        console.log(obj[0].name)
-        company_name = obj[0].company_name; 
-        jobId = obj[0].jobs; 
-        // console.log(jobId)
-        // current_position = obj[0].current_position;
-        // current_level = obj[0].current_level;
-        // desired_level = obj[0].desired_level;
-        // desired_position = obj[0].desired_position;
-        // skills = obj[0].skills; 
-        // preferred_job_details = obj[0].preferred_job_details 
-   })
-//    displayAttributes()
-
-    displayAllJobs ()
+        },
+        credentials: "include"
+    });
+    let data = await response.json();
+    console.log(data);
+    const obj = data
+    company_name = obj.company_name;
+    jobId = obj.jobs;
 
 }
 
@@ -66,11 +44,11 @@ async function displayAllJobs() {
             console.log(data)
             const obj = JSON.parse(data)
 
-            position_title = obj[0].position_title;
-            position_level = obj[0].position_level;
-            can_coach = obj[0].can_coach;
-            skills = obj[0].skills;
-            job_details = obj[0].job_details;
+            position_title = obj.position_title;
+            position_level = obj.position_level;
+            can_coach = obj.can_coach;
+            skills = obj.skills;
+            job_details = obj.job_details;
         })
 
         display(i)
@@ -78,7 +56,6 @@ async function displayAllJobs() {
 
     }
 
-    // display()
 
 }
 
@@ -98,10 +75,6 @@ function display(i) {
    
     jobInfo.appendChild(jobButton) 
 
-
-
-    // content
-
     var jobDiv = document.createElement("div")
     jobDiv.id = 'profile-div'
 
@@ -113,24 +86,6 @@ function display(i) {
     nameSpan.textContent = company_name 
     nameSpan.innerHTML += "<br/>"
 
-    // var editButton = document.createElement("button"); 
-    // editButton.id = "edit-button"
-
-    // var childDiv1 = document.createElement("div")
-    // childDiv1.classList.add("child-div")
-    // // var editDiv = document.createElement("div")
-    // // editDiv.id = "edit-div"
-
-    // childDiv1.append(nameSpan)
-    
-    
-    // topBarDiv.append(childDiv1)
-    // var childDiv2 = document.createElement("div")
-    // childDiv2.classList.add("child-div")
-
-    // childDiv2.append(editButton)
-    // topBarDiv.append(childDiv2)
-    // topBarDiv.append(childDiv)
 
     jobDiv.appendChild(nameSpan)
     jobDiv.appendChild(lineBreak)
@@ -254,4 +209,3 @@ function styleDiv(divEl) {
     return divEl
 }
 
-getEmployer()
