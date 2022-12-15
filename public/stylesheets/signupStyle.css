@@ -1,7 +1,8 @@
 
 body{
-    background-color:#22577A ;
-    color: white;
+    /* background-color:#22577A ; */
+    background-image: url('../images/geometric.jpg');
+    color: #22577A;
     font-family: Roboto, 'sans-serif';
 }
   
@@ -21,14 +22,15 @@ body{
     box-sizing: border-box;
     /* margin-top: 10%;
     margin-bottom: 23%; */
-    background-color:#38A3A5 ;
+    background-color:#eaf4f4 ;
+    border:1px solid #22577A;
     
     
   }
   
-#WildcardTitle{
+#wildcardTitle{
     text-align: center;
-    color: white;
+    color: #22577A;
   }
   
   
