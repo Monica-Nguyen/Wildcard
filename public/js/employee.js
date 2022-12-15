@@ -28,8 +28,8 @@ async function checkEmployeeDetails() {
         if (response.status == 200) {
             personData = await response.json();
             //Check if returned company exists
-            person = personData[0];
-            personID = personData[0]["_id"];
+            person = personData;
+            personID = personData["_id"];
             prefillFormFields();
         }
         else {
@@ -252,6 +252,6 @@ async function updatePerson() {
         });
         let data = await response.json();
         console.log(data);
-        window.location.reload();
+        window.location.replace('/')
     }
 }

@@ -3,9 +3,8 @@ var company_name;
 var position_title;
 var position_level;
 var can_coach;
-var skills;
+var skills = [];
 var job_details;
-
 var jobId; 
 
 
@@ -19,10 +18,11 @@ async function getEmployer() {
         credentials: "include"
     });
     let data = await response.json();
-    console.log("here " + data);
-    const obj = data
+    console.log(data);
+    const obj = data;
     company_name = obj.company_name;
     jobId = obj.jobs;
+    displayAllJobs();
 
 }
 
@@ -31,26 +31,20 @@ async function displayAllJobs() {
     for (let i = 0; i< jobId.length; i++) {
         console.log(jobId[i])
         var url = 'http://localhost:3000/api/job/' + jobId[i]
-        await fetch (url , {
+        let response = await fetch (url , {
             method: "GET",
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': "application/json",
             }
-        })
-        .then(function(response) {
-            return response.text();
-        }).then(function(data) { 
-            console.log(data)
-            const obj = JSON.parse(data)
-
-            position_title = obj.position_title;
-            position_level = obj.position_level;
-            can_coach = obj.can_coach;
-            skills = obj.skills;
-            job_details = obj.job_details;
-        })
-
+        });
+        let data = await response.json();
+        let obj = data[0];
+        position_title = obj.position_title;
+        position_level = obj.position_level;
+        can_coach = obj.can_coach;
+        skills = obj.skills;
+        job_details = obj.job_details;
         display(i)
         // createJobDiv(i)
 
