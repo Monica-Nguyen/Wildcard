@@ -23,7 +23,21 @@
 
 </head>
 <body onload="checkJobDetails()" id="employer-form-body">
-<a class="button" href="/"> <b>Back</b></a>
+    <div class="nav">
+        <button class="dropbtn">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/profile/current">Profile</a>
+            <a href="/discover">Discover</a>
+            <a href="/matches">Matches</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <a class="button" href="/"> <b>Back</b></a>
     <h1 id="create-account-title">Employer Profile</h1>
     <div class="account-form" id="company-option">
         <h5 class="form-headers">Company Name</h5>
