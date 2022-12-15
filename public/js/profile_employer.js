@@ -23,12 +23,58 @@ async function getEmployer() {
     company_name = obj.company_name;
     jobId = obj.jobs;
     console.log(obj.jobId);
-    displayAllJobs();
+    if (jobId.length != 0){
+        displayAllJobs();
+    }
+    else { 
+        console.log("0")
+        displayCompany() 
+    }
 
+
+}
+
+function displayCompany() { 
+    var jobSet = document.getElementById("jobSet")
+    var jobInfo = document.createElement("div")
+
+    var jobDiv = document.createElement("div")
+    jobDiv.id = 'profile-div'
+
+    var nameSpan = document.createElement("span"); 
+    nameSpan.id = "name"
+    nameSpan.textContent = company_name 
+   
+    
+
+    jobDiv.appendChild(nameSpan)
+    jobDiv.innerHTML += "<br/> <br/> <br/>"
+
+    var positionSpan = document.createElement("span"); 
+    positionSpan.classList.add("desc")
+    positionSpan.textContent = "No Job Openings Yet"
+    positionSpan.innerHTML += "<br/> <br/> <br/>"
+
+    jobDiv.appendChild(positionSpan)
+
+
+    var editButton = document.createElement("a"); 
+    editButton.setAttribute('href', '/account/employer-form');      
+    editButton.textContent = 'Edit Profile';      
+    editButton.classList.add("button-link");
+    jobDiv.appendChild(editButton)
+
+
+
+
+    jobInfo.appendChild(jobDiv) 
+
+    jobSet.appendChild(jobInfo)
 }
 
 async function displayAllJobs() { 
     
+    console.log("not 0")
     for (let i = 0; i< jobId.length; i++) {
         console.log(jobId[i])
         var url = 'http://localhost:3000/api/job/' + jobId[i]
