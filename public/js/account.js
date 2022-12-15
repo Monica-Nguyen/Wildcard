@@ -28,8 +28,10 @@ async function checkJobDetails() {
             accept: 'application/json',
         },
     }).then(async function (response) {
-        if (response.status == 200) {
-            companyData = await response.json();
+        companyData = await response.json();
+        console.log(companyData);
+        if (companyData != null) {
+            console.log(companyData);
             document.getElementById("create-save-button").style.display = "none";
             let jobSpace = document.getElementById("current-jobs");
             //Check if returned company exists
