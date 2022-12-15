@@ -9,7 +9,7 @@
   </head>
   <body>
     <div class="chat-page">
-      <div class="grid">
+      <div class="contents">
         <div class="nav">
           <button class="dropbtn">
             <div class="line"></div>
@@ -24,18 +24,8 @@
             <a href="#">Message</a>
           </div>
         </div>
-        <div class="messages">
-          <h2>Messages</h2>
-          <span id="matches-logo"></span>
-          <div class="matches"><h3 id="matches-list"></h3><h4 id="job">Software Developer</h4></div>
-        </div>
         <div class="banner">
-          <span id="banner-logo"></span>
-          <h1 id="employer">Conversation with Oracle</h1>
-          <h2 id="first-banner-text">You matched on the </h2>
-            <h2 class="actual-job-name">Software Developer</h2>
-          <h2> job on 12/12/2022</h2>
-          
+          <h1 id="employer">Chat with your Match</h1>
         </div>
         <div class="chat">
           <form>
@@ -59,7 +49,6 @@
             const socket = io("http://localhost:3000");
             let messageHistory = [];
             let jobDetails = "";
-            document.getElementById("first-banner-text").className = "first-banner-text";
             socket.emit("hello", "hello from client");
             socket.on("hello", function (msg) {
               console.log(msg);
@@ -94,21 +83,6 @@
                     },
                     false
             );
-
-            function updateMatchDetails(){
-              if (matchInfo["current_role"] == "Employee") {
-                document.getElementById("employer").innerText = "Conversation with " + matchInfo["employer"];
-                document.getElementById("matches-list").innerText = matchInfo["employer"];
-                document.getElementById("matches-logo").className = "avatar";
-                document.getElementById("banner-logo").className = "avatar";
-              }
-              else {
-                document.getElementById("employer").innerText = "Conversation with " + matchInfo["employee"];
-                document.getElementById("matches-list").innerText = matchInfo.employee;
-                document.getElementById("matches-logo").className = "steve";
-                document.getElementById("banner-logo").className = "steve";
-              }
-            }
 
             async function getMatchInfo() {
               let matchURL = 'http://localhost:3000/message/match-info/' + matchID;
@@ -160,22 +134,6 @@
             }
 
           </script>
-        </div>
-        <div class="useless-space">
-          <span class="avatar"></span>
-        </div>
-        <div class="role">
-          <h2>Oracle</h2>
-          <h2>Software Developer</h2>
-          <div class="description">
-            <ul>
-              <li>Position Level: Junior</li>
-              <li>Remote</li>
-              <li>Agile</li>
-            </ul>
-          </br>
-            A Junior Software Developer is required within Unified Operations for the Oracle Communications Applications Unified Designer product. This Cloud Native product provides a powerful environment that simplifies and accelerates introduction of new, competitive services that operators need to bring to market. Unified Designer empowers operators to produce new services with full support of the service life cycle, including the design, build, test and deploy of services, and includes service documentation generated from the tool as you build, freeing operator personnel to spend more time creating value-added services. The incumbent is a Software Developer who is a full stack developer with cloud development experience, located at Greater Toronto Area or Ottawa, Canada. You would be involved in all aspects of the product development life cycle including product design, implementation, product customer support, internal support for professional services, and product evolution.
-          </div>
         </div>
       </div>
     </div>

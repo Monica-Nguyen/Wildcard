@@ -7,123 +7,41 @@
   font-family: "Roboto", sans-serif;
 }
 
-.grid {
-  display: grid;
+.contents {
   position: absolute;
   width: 100%;
   height: 100%;
-  grid-template-columns: 60% 20%;
-  grid-template-rows: 88%;
+  background-image: url('../images/geometric.jpg');
 }
 
 .nav {
-  grid-column-start: 0;
-  grid-column-end: 1;
-  grid-row-start: 0;
-  grid-row-end: 1;
-  background-color: #22577a;
-  padding-top: 30px;
-  padding-left: 30px;
-}
-
-.messages {
-  grid-column-start: 0;
-  grid-column-end: 1;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  background-color: #38a3a5;
-}
-
-.messages h2 {
-  padding: 20px;
-  color: white;
-  font-size: 24;
-  margin-left: 20px;
-}
-
-.matches {
-  padding: 20px;
-  cursor: pointer;
-}
-
-#matches-list {
-  margin-left: 75px;
-}
-
-#job {
-  margin-left: 75px;
-}
-
-.messages .steve {
-  float: left;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.messages .avatar {
-  float: left;
-  margin-left: 10px;
-  cursor: pointer;
+  color: black;
+  margin-right: 15%;
 }
 
 .banner {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 0;
-  grid-row-end: 1;
   background-color: #38a3a5;
   padding-left: 10px;
   color: white;
-  padding-top: 10px;
-}
-
-.banner .avatar {
-  margin-left: 10px;
-  float: left;
-}
-
-.banner .steve {
-  margin-left: 10px;
-  float: left;
-}
-
-.actual-job-name {
-  color: #80ed99;
+  padding: 25px;
 }
 
 .banner h1 {
   font-size: 36;
-  margin-left: 85px;
-}
-
-.banner h2 {
-  display: inline;
-}
-
-.first-banner-text {
-  margin-left: 10px;
-}
-
-.chat {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  background-color: #22577a;
+  margin-left: 25px;
 }
 
 form {
   position: fixed;
   bottom: 0;
-  width: 60%;
+  width: 100%;
   display: flex;
   box-sizing: border-box;
   padding: 0.25rem;
-  background-color: #22577a;
 }
 
 form input {
-  border: 0;
+  border-color: black;
   padding: 0.5rem;
   width: 100%;
   outline: 0;
@@ -137,7 +55,7 @@ form input {
 
 form button {
   width: 6rem;
-  background-color: #57cc99;
+  background-color: #38a3a5;
   color: white;
   border: none;
   padding: 0.5rem;
@@ -152,64 +70,30 @@ form button {
 }
 
 form button:hover {
-  background-color: #9bebc8;
+  background-color: #57cc99;
+}
+
+.chat {
+  padding-top: 20px;
 }
 
 .chat li {
   padding: 0.5rem;
-  margin: 20px;
-  width: 350px;
+  margin-bottom: 20px;
+  width: 90%;
+  justify-content: center;
   background-color: #57cc99;
   border-radius: 50px;
-  margin-left: 50px;
   list-style: none;
   padding-left: 15px;
-}
-
-
-
-.chat li:nth-child(odd) {
-  padding: 0.5rem;
-  margin-left: 650px;
-  width: 350px;
-  background-color: #fff;
-  border-radius: 50px;
-  margin-right: 0px;
-  list-style: none;
-  padding-left: 15px;
-} 
-
-.useless-space {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 0;
-  grid-row-end: 1;
-  background-color: #57cc99;
-}
-
-.role {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  background-color: #57cc99;
-  display: inline;
-  text-align: center;
-}
-
-.description {
-  padding: 20px;
-}
-
-.description li {
-  list-style: none;
+  margin-left: 5%;
 }
 
 .nav .dropbtn {
-  font-size: 16px;  
+  font-size: 16px;
   border: none;
   outline: none;
-  color: white;
+  color: black;
   padding: 14px 16px;
   background-color: inherit;
   font-family: inherit;
@@ -221,7 +105,7 @@ form button:hover {
   position: absolute;
   background-color: #38a3a5;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -245,28 +129,6 @@ form button:hover {
 .line {
   width: 45px;
   height: 6px;
-  background-color: white;
+  background-color: black;
   margin: 8px 0;
-}
-
-.avatar {
-  content: url(../images/oracle.wine.png);
-  height: 65px;
-  width: 65px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top: 10px;
-  margin-left:140px;
-  background-color: #bbb;
-} 
-
-.steve {
-  content: url(../images/Steve.png);
-  height: 65px;
-  width: 65px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-top: 10px;
-  margin-left:140px;
-  background-color: #bbb;
 }
