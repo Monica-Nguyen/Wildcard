@@ -18,9 +18,7 @@ h1{
     width: 225px;
     background-color: #bbb;
     border-radius: 50%;
-    display: inline-block;
-    margin-left: 10%;
-    margin-top: 5%;
+    display: flex;
     font-weight: bold;
     padding-right:3px;
     padding-top: 3px;
@@ -34,8 +32,14 @@ h1{
     );
     text-align:center;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
+}
+
+.match_link{
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10%;
+    margin-top: 5%;
 }
 
 .nav {
