@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="banner">
-          <h1 id="employer">Chat with your Match</h1>
+          <h1 id="employer-match-info"></h1>
         </div>
         <div class="chat">
           <form>
@@ -40,7 +40,7 @@
           </form>
           <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
           <script>
-            let matchInfo = {}
+            let userInfo;
             let matchID = /[^/]*$/.exec(window.location.href)[0];
             const form = document.querySelector("form");
             const input = document.querySelector(".input");
@@ -53,19 +53,19 @@
             socket.on("hello", function (msg) {
               console.log(msg);
             });
-            getMatchInfo().then(response => assignMatchInfo(response));
+            getUserInfo().then(response => assignUserInfo(response));
             getMessageHistory();
 
-            function assignMatchInfo(info) {
-              matchInfo = info;
-              console.log(matchInfo);
-              username = matchInfo.current_user;
-              updateMatchDetails();
+            function assignUserInfo(info) {
+              userInfo = info;
+              console.log(userInfo);
+              username = userInfo.user;
+              document.getElementById("employer-match-info").innerText = `Chat with ${userInfo.match}`
             }
 
             socket.emit("user_join", username);
             socket.on("chat_message", function (data) {
-              addMessage(matchInfo.current_user + ": " + data.message);
+              addMessage(userInfo.user + ": " + data.message);
             });
             form.addEventListener(
                     "submit",
@@ -84,8 +84,8 @@
                     false
             );
 
-            async function getMatchInfo() {
-              let matchURL = 'http://localhost:3000/message/match-info/' + matchID;
+            async function getUserInfo() {
+              let matchURL = 'http://localhost:3000/matches/getNames/'+matchID;
               let response = await fetch(matchURL, {
                 method: 'GET',
                 headers: {
@@ -118,7 +118,7 @@
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  "name": username,
+                  "name": userInfo.user,
                   "message_body": inputValue
                 })
               });
