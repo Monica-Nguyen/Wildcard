@@ -21,10 +21,10 @@ router.get('/', async function(req, res, next) {
     let db_query = await Employee.findOne({"user": req.user._id});
   
     if(db_query == null){
-        // isEmployer
-        res.render('discoverEmployer')
+        // isEmployee
+        res.render('discoverEmployee')
     } else {
-      res.render('discoverEmployee')
+      res.render('discoverEmployer')
     }
   }
 });
