@@ -6,8 +6,6 @@
 body{
     background-image: url(../images/background.jpg);
     background-size: 100%;
-  
-    
 }
 
 h1{
@@ -87,10 +85,3 @@ h1{
     background-color: white;
     margin: 8px 0;
   }
-
-.text-box{
-    font-family:Georgia, 'Times New Roman', Times, serif;
-    margin-left: 550px;
-    font-size: 3vw;
-    font-weight: bold;
-}

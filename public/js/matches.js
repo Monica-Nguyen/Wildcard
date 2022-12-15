@@ -18,7 +18,7 @@ async function getMatchByUser() {
                 `
             <div>
                <h1>Matches List</h1>
-                <a href=${chatURL}><span class="dot">Oracle<img src="../images/oracle.wine.png"></span></a>
+                <a href=${chatURL}><span class="dot">Oracle</span></a>
             </div>
             
             `
