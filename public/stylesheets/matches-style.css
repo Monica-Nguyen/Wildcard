@@ -27,7 +27,7 @@ h1{
     color: black;
     background: radial-gradient(
         rgb(115, 154, 168) 0%,
-        rgba(0, 128, 172, 1) 70%,
+        #38a3a5 70%,
         rgba(0, 128, 172, 0) 70.3%
     );
     text-align:center;

@@ -17,7 +17,6 @@ async function getMatchByUser() {
             matchList +=
                 `
             <div>
-               <h1>Matches List</h1>
                 <a href=${chatURL}><span class="dot">Oracle</span></a>
             </div>
             
