@@ -7,6 +7,8 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   height: 100%;
   background-image: url(../images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover
 }
 
 a {
@@ -138,7 +140,7 @@ a:active { text-decoration: none; }
 }
 
 #match > a > span {
-  font-size: 100px;
+  font-size: 100vw;
 }
 
 #info {
@@ -149,6 +151,7 @@ a:active { text-decoration: none; }
 
 #looking {
   margin-bottom: 25%;
+  font-size: 3vw;
 }
 
 li {
@@ -243,7 +246,7 @@ a:active { text-decoration: none; }
 }
 
 #match > a > span {
-  font-size: 100px;
+  font-size: 100vw;
 }
 
 #info {
@@ -279,7 +282,7 @@ button {
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
   color:black;
-  font-size: 65px;
+  font-size: 6vw;
 }
 
 .carousel-control-prev-icon {
@@ -304,8 +307,7 @@ button {
 .nav {
   padding: 20px;
   width: 60px;
-  margin-left: 84vw;
-  z-index: 12;
+  margin-left: 80%;
 }
 
 .nav .dropbtn {
@@ -322,10 +324,10 @@ button {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: white;
+  background-color: #38a3a5;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 50;
+  z-index: 1;
 }
 
 .dropdown-content a {
@@ -351,6 +353,7 @@ button {
   background-color: black;
   margin: 8px 0;
 }
+
 #employeeTitle{
   font-family:Georgia, 'Times New Roman', Times, serif;
   font-weight: bold;
