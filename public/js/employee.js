@@ -25,8 +25,8 @@ async function checkEmployeeDetails() {
             accept: 'application/json',
         },
     }).then(async function (response) {
-        if (response.status == 200) {
-            personData = await response.json();
+        personData = await response.json();
+        if (personData != null) {
             //Check if returned company exists
             person = personData;
             personID = personData["_id"];
