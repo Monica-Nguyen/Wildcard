@@ -79,10 +79,14 @@ input[type=password] {
   color: #22577A;
   
 }
+#title{
+  text-align:center;
+  color: #22577A;
+}
 
 #loginTitle{
   text-align:center;
-
+  color: #22577A;
 }
 
 #signup-form { 
