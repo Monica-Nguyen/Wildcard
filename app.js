@@ -97,8 +97,10 @@ app.get('/', async function (req, res, next) {
                 res.redirect('/profile/employee')
             }
         }
-        else if (employer.length !== 0) {
-            res.redirect('/profile/employer')
+        else if (employer != null) {
+            if (employer.length !== 0){
+                res.redirect('/profile/employer')
+            }
         }
         else {
             res.redirect('account/')
