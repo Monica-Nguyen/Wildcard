@@ -198,16 +198,10 @@ function display(i) {
     detailDiv.innerHTML += "<br/> <br/> <br/>"
     
     jobDiv.appendChild(detailDiv)
-    
-    var editButton = document.createElement("button"); 
-    editButton.textContent = "Edit Profile" 
-    jobDiv.appendChild(editButton)
+
 
     jobDiv.innerHTML += "<br/> <br/>"
 
-    var matchingButton = document.createElement("button"); 
-    matchingButton.textContent = "Start Matching"
-    jobDiv.appendChild(matchingButton)
 
 
 

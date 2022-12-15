@@ -111,3 +111,23 @@ router.get('/match-info/:id', async (req, res) => {
         res.status(500).json({message: error.message})
     }
 })
+
+router.get('/employee/current/', async (req, res) => {
+    try {
+        let employee = await Employee.findOne({"user": req.user._id});
+        res.json(employee);
+    }
+    catch(error){
+        res.status(500).json({message: req.user})
+    }
+})
+
+router.get('/employer/current/', async (req, res) => {
+    try {
+        let employee = await Employer.findOne({"user": req.user._id});
+        res.json(employee);
+    }
+    catch(error){
+        res.status(500).json({message: req.user})
+    }
+})

@@ -1,4 +1,3 @@
-var userid = "6391663e5510bd5a4bb4f187"
 
 var employeeName = '';
 var current_position;
@@ -10,29 +9,25 @@ var preferred_job_details;
 
 
 async function getEmployeeInfo() {
-    await fetch ('http://localhost:3000/api/employee/6391663e5510bd5a4bb4f187' , {
+    let response = await fetch ('http://localhost:3000/message/employee/current/' , {
         method: "GET",
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': "application/json",
-        }
-    })
-        .then(function(response) {
-            return response.text();
-        }).then(function(data) {
-            console.log(data)
-            const obj = JSON.parse(data)
-            console.log(obj[0].name)
-            employeeName = obj[0].name;
-            current_position = obj[0].current_position;
-            current_level = obj[0].current_level;
-            desired_level = obj[0].desired_level;
-            desired_position = obj[0].desired_position;
-            skills = obj[0].skills;
-            preferred_job_details = obj[0].preferred_job_details
-        })
-    displayAttributes()
-
+        },
+        credentials: "include"
+    });
+    let data = await response.json();
+    console.log(data);
+    const obj = data
+    employeeName = obj.name;
+    current_position = obj.current_position;
+    current_level = obj.current_level;
+    desired_level = obj.desired_level;
+    desired_position = obj.desired_position;
+    skills = obj.skills;
+    preferred_job_details = obj.preferred_job_details;
+    displayAttributes();
 }
 
 function displayAttributes () {
@@ -57,20 +52,20 @@ function displayAttributes () {
     for (let i = 0; i < skills.length; i++) {
         var box = document.createElement("div");
         var s = skills[i];
-        box.id = "box"
-        box.innerHTML = s
-        box = styleDiv(box)
-        skillDiv.appendChild(box)
+        box.id = "box";
+        box.innerHTML = s;
+        box = styleDiv(box);
+        skillDiv.appendChild(box);
 
     }
     var pjdDiv = document.getElementById("pjd-div")
     for (let i = 0; i < preferred_job_details.length; i++) {
         var box = document.createElement("div");
         var s = preferred_job_details[i];
-        box.id = "box"
-        box.innerHTML = s
-        box = styleDiv(box)
-        pjdDiv.appendChild(box)
+        box.id = "box";
+        box.innerHTML = s;
+        box = styleDiv(box);
+        pjdDiv.appendChild(box);
     }
     console.log(skills)
 
@@ -82,12 +77,9 @@ function styleDiv(divEl) {
     divEl.style.color = "white";
     divEl.style.padding = "10px";
     divEl.style.borderRadius = "25px";
-    divEl.style.width = "50px"
-    divEl.style.marginTop = "5px"
-    divEl.style.marginLeft = "10px"
-
+    divEl.style.width = "50px";
+    divEl.style.marginTop = "5px";
+    divEl.style.marginLeft = "10px";
 
     return divEl
 }
-
-getEmployeeInfo()
